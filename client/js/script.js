@@ -28,3 +28,5 @@ $('#command').keyup(function (e) {
     sendCommand();
   }
 });
+
+addLine('Connecting...');
