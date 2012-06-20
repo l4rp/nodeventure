@@ -9,26 +9,6 @@ function Game() {
   this.rooms = {};
   this.players = {};
   this.commands = {
-    go: function (rest, player, game) {
-      var currentRoom = player.getCurrentRoom(),
-          destination = currentRoom.getExit(rest.toLowerCase());
-      if (destination) {
-        player.setCurrentRoom(destination);
-        player.write("You go " + rest);
-        player.execute("look");
-      } else {
-        player.write("There is no " + rest + " exit");
-      }
-    },
-    look: function (rest, player, game) {
-      // TODO: Support looking *at* things
-      player.write(player.getCurrentRoom().description);
-      player.execute('exits');
-    },
-    exits: function (rest, player, game) {
-      var exits = Object.keys(player.getCurrentRoom().exits);
-      player.write("Exits: " + exits.join(","));
-    }
   };
 }
 util.inherits(Game, events.EventEmitter);
@@ -48,13 +28,28 @@ _.extend(Game.prototype, {
   createCommand: function (command, fun) {
     this.commands[command] = fun;
   },
+  // Broadcast out a message to all logged in users
+  broadcast: function (message) {
+    _.each(this.players, function (player) {
+      player.write(message);
+    });
+  },
   execute: function (player, string) {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
     if (!this.commands.hasOwnProperty(command)) {
       player.write("Awfully sorry old chap, but I don't understand");
     } else {
-      this.commands[command](rest, player, this);
+      try {
+        this.commands[command](rest, player, this);
+      } catch (e) {
+        console.log('Error running command: ' + string);
+        console.log(e);
+        console.trace();
+        player.write("OH NO! There was an error handling your command. Watch out for the stack trace!");
+        player.write(e);
+        player.write(e.stack);
+      }
     }
   }
 });
@@ -70,13 +65,31 @@ _.extend(Room.prototype, {
   getExit: function (name) {
     var exit = this.exits[name];
     return exit && this.game.rooms[exit];
+  },
+  // Get all players in the room
+  getPlayers: function () {
+    var _this = this;
+    return _.filter(_.values(this.game.players), function (player) {return player.location == _this.id;})
+  },
+  // Send a message to all players in the room. Optionally you can
+  // pass in a player to exclude from the message (for example, if
+  // they are the source of the message you might not want them to
+  // receive it)
+  broadcast: function (message, excludePlayer) {
+    if (excludePlayer && excludePlayer.name) {
+      excludePlayer = excludePlayer.name;
+    }
+    _.each(this.getPlayers(), function (player) {
+      if (excludePlayer !== player.name) {
+        player.write(message);
+      }
+    });
   }
 });
 
-
 function Player(game, name) {
   events.EventEmitter.call(this);
-  this.location = "room1";
+  this.location = "home";
   this.game = game;
   this.name = name;
 }
@@ -100,7 +113,9 @@ _.extend(Player.prototype, {
       id = id.id;
     }
     if (id in this.game.rooms) {
+      this.game.emit('leaveRoom', this, this.getCurrentRoom(), this.game);
       this.location = id;
+      this.game.emit('enterRoom', this, this.getCurrentRoom(), this.game);
     }
   }
 });

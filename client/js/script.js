@@ -1,9 +1,18 @@
 var socket = io.connect('http://localhost');
 
-socket.on('write', function (string) {
+function addLine(string) {
   var line = $('<pre>');
   line.text(string);
   $('#output').append(line);
+}
+
+socket.on('write', function (string) {
+  addLine(string);
+});
+
+socket.on('disconnect', function () {
+  addLine('DISCONNECTED!');
+  addLine('Reload to reconnect...');
 });
 
 socket.emit('login', prompt("Name?"));

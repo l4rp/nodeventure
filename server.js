@@ -1,14 +1,12 @@
-// Console client
-var Game    = require('./game').Game,
-    game    = new Game(),
+// Server for websockets based client
+var Loader  = require('./loader').Loader,
+    loader  = new Loader('./world'),
+    game    = loader.game,
     fs      = require("fs"),
     express = require("express"),
     app     = express.createServer(),
     io      = require('socket.io').listen(app);
 
-
-game.createRoom('room1', {description: "This is the first room", exits: {north: 'room2'}});
-game.createRoom('room2', {description: "This is the second room", exits: {south: 'room1'}});
 
 // Serve the index.html as the root
 app.get("/", function(req, res) {
