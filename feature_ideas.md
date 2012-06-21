@@ -1,0 +1,21 @@
+ - Items
+ - User login
+ - Saving users
+ - Saving world
+ - General persistence mechanism
+ - Combat
+ - Client Pictures
+ - Client map
+ - Client controls
+ - Make client pretty
+ - iPhone client
+ - Rooms etc
+ - Puzzles
+ - In game editing
+ - NPCs
+ - Monsters
+ - Tells, emotes, remotes etc
+ - Player inventory
+ - Better movement commands
+ - Generated content
+ - Real world hooks

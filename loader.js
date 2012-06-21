@@ -53,6 +53,7 @@ _.extend(Loader.prototype, {
           // Check if the file has changed
           if (!this.modules[file] || mtime !== this.modules[file].mtime) {
             console.log('Reloading world module:', file);
+            this.game.broadcast('SYSTEM STATUS: Reloading world module:' + file);
             if (this.modules[file]) {
               // There's an existing module, we want to remove all
               // event handlers from it
