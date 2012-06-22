@@ -24,8 +24,20 @@ function WorldModule(game) {
     _.extend(player, properties);
     return player;
   };
+  this.setTimeout = function (fn, time) {
+    setTimeout(function () {
+      try {
+        fn();
+      } catch(e) {
+        game.broadcast('Error running timeout');
+        game.broadcast(e);
+        game.broadcast(e.stack);
+        console.trace();
+      }
+    }, time);
+  };
   this.handler = function (event, fn) {
-    _this.on(event, function () {
+    var wrapped = function () {
       try {
         fn.apply(_this, arguments);
       } catch (e) {
@@ -34,8 +46,10 @@ function WorldModule(game) {
         game.broadcast(e.stack);
         console.log('Error running handler for event: ' + event);
         console.trace();
+        _this.removeListener(event, wrapped);
       }
-    });
+    };
+    _this.on(event,  wrapped);
   };
 }
 

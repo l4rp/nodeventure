@@ -39,7 +39,7 @@ socket.on('write', function (message) {
 });
 socket.on('disconnect', function () {
   addLine('DISCONNECTED!');
-  addLine('Reload to reconnect...');
+  connect();
 });
 
 
@@ -158,6 +158,11 @@ function woah() {
   $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
 }
 
+function unwoah() {
+  $('pre').stop().css('color', '');
+  $('body').stop().css('backgroundColor', '');
+}
+
 function attack() {
   $('body').addClass('attack');
   setTimeout(function(){ $('body').removeClass('attack'); }, 1000);
@@ -169,7 +174,10 @@ var username = prompt("Name?", storedUsername);
 localStorage.setItem("username", username);
 
 // INIT !
-socket.emit('login', username);
-init();
-addLine('Connecting...');
-$("input#command").focus();
+function connect() {
+  socket.emit('login', username);
+  init();
+  addLine('Connecting...');
+  $("input#command").focus();
+}
+connect();

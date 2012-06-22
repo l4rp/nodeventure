@@ -3,7 +3,7 @@ command('get', 'Pick up an item from the current room.', function (rest, player,
     if (item) {
 	  if (item.gettable !== false) {
 		// remove item from room & add to player inventory
-	      player.write("You pick up the " + rest);
+	      player.write("You pick up the " + rest); 
 	      player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
 	      player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
 	      player.inventory.push(item);

@@ -59,13 +59,16 @@ _.extend(Game.prototype, {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
 
-    if (player.isDead() && (command !== 'godmother' || commands !== 'clickheels')) {
-      player.write("You're dead! Start acting like it (or type 'respawn')")
+    if (player.isDead() && !(command === 'godmother' || commands === 'clickheels')) {
+      player.write("You're dead! Start acting like it (or type 'godmother')")
     }
 
     if (!this.commands.hasOwnProperty(command)) {
-      console.trace();
-      player.write("Awfully sorry old chap, but I don't understand: " + string);
+      if (player.getCurrentRoom().getExit(command)) {
+        player.execute('go ' + command);
+      } else {
+        player.write("Awfully sorry old chap, but I don't understand: " + string);
+      }
     } else {
       try {
         this.commands[command](rest.trim(), player, this);

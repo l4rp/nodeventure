@@ -12,7 +12,7 @@ handler('tick', function () {
         exit = exits[i];
     room.broadcast('The Yeti picks himself up and heads to the ' + exit + ' exit');
     yeti.execute('go ' + exit);
-    if (room !== yeti.getCurrentRoom()) {
+    if (room === yeti.getCurrentRoom()) {
       room.broadcast('The Yeti is enraged to find himself back in the place');
       yeti.description = 'enraged';
     } else {
@@ -22,7 +22,7 @@ handler('tick', function () {
         yeti.description = 'half man, half monkey,half bear and all yeti. He seems to miss the snow.';
       } else {
         room.broadcast('The yeti seems delighted to find snow here!');
-        yeti.description = 'half man, half monkey,half bear and all yeti. He seems to like the snow.';
+        yeti.description = 'Half man, half monkey, half bear and all yeti. He seems to like the snow.';
       }
     }
   }

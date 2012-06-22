@@ -1,2 +1,3 @@
-handler "invget:gemerald", (player,game) ->
-  player.write {run: "animate"} 
+handler "invuse:mirror", (rest, player, game) ->
+  player.write {effect: "mirror"} 
+

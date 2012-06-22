@@ -1,9 +1,12 @@
 command('attack', 'Attack another player! Example: attack bob', function (rest, player, game) {
   var victim = getTarget(player, rest.trim(), game);
+  var damage = 1;
 
   if (victim) {
     player.getCurrentRoom().broadcast(player.name + ' attacks ' + victim.name, player);
     player.write('You attack ' + victim.name + ", it's super effective!");
+    victim.health -= damage;
+    victim.write(player.name + " hit you for " + damage + " damage! You have " + victim.health + " left.")
     victim.write({effect: 'attack'});
   } else {
     player.write('No one to attack by that name');
@@ -32,9 +35,14 @@ command('shove', 'Shove another player somewhere! Example: shove bob north', fun
 
     player.write("You shove " + victim.name + " " + direction + ", lol!");
     victim.write(player.name + " shoved you " + direction + "!");
+    player.getCurrentRoom().broadcast(player.name + ' shoves ' + victim.name + ' ' + direction);
     victim.location = exits[direction];
     victim.execute('look');
   } else {
     player.write("You can't shove " + victim.name + " in that direction.");
   }
+});
+
+command('health', "Check your character's current health", function (rest, player, game) {
+  player.write("Health: " + player.health);
 });
