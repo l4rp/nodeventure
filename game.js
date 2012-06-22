@@ -1,25 +1,35 @@
+/* Nodeventure game engine: Is responsible for running the game,
+ * contains the core logic but is extended by the world modules.
+ *
+ */
 var util = require("util");
 var events = require("events");
 var _ = require("underscore");
 
 module.exports.Game = Game;
 
+// Represents a running game (usually you'd just have one!)
 function Game() {
+  // Set up the event emmiter
   events.EventEmitter.call(this);
   this.rooms = {};
   this.players = {};
-  this.commands = {
-  };
+  this.commands = {};
 }
+// We inherit from node's event emmiter to allow events on the game,
+// world modules listen to them via the Fascade in loader.js which
+// also handles disconnecting them when the world modules are reloaded.
 util.inherits(Game, events.EventEmitter);
 
 _.extend(Game.prototype, {
+  // Create or return a named player
   createPlayer: function (name) {
     if (!(name in this.players)) {
       this.players[name] = new Player(this, name);
     } 
     return this.players[name];
   },
+  // Create or return a room. Usuaully used by the fascade in laoder.js
   createRoom: function (id, options) {
     var room = this.rooms[id] = this.rooms[id] || new Room(this,id);
     _.extend(room, options);
@@ -51,6 +61,14 @@ _.extend(Game.prototype, {
         player.write(e.stack);
       }
     }
+  },
+  // Override EventEmitter's emit to also emit an 'all' event to allow
+  // event forwarding.
+  emit: function (event /* ,args...*/) {
+    events.EventEmitter.prototype.emit.apply(this, arguments);
+    var args = _.toArray(arguments);
+    args.unshift('all');
+    events.EventEmitter.prototype.emit.apply(this, args);
   }
 });
 

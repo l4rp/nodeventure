@@ -5,30 +5,10 @@
 var vm = require('vm'),
     fs      = require("fs"),
     game = require('./game'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    WorldModule = require('./world').WorldModule;
 
 module.exports.Loader = Loader;
-
-function WorldModule(game) {
-  var _this = this;
-  this._listenersAdded = [];
-  // Make all regular globals available within the modules (is this a
-  // good idea?)
-  _.extend(this, global);
-  // Inject underscore
-  this._ = _;
-  // Make available world creation commands
-  this.command = _.bind(game.createCommand, game);
-  this.room = _.bind(game.createRoom, game);
-  // Method to add event listners which can automatically remove them
-  // if we reload the module
-  this.on = function (event, fn) {
-    game.on(event, fn);
-    // Keep a record of events added so we can remove them later
-    _this._listenersAdded.push({event: event, fn: fn});
-  };
-}
-
 
 function Loader(path) {
   this.game = new game.Game();
@@ -36,6 +16,12 @@ function Loader(path) {
   this.modules = {};
   this.update();
   setInterval(_.bind(this.update, this), 5000);
+  // Game's emit has been extended to emit an 'all' event on any event
+  this.game.on('all', function (event /* ,args...*/) {
+    _.each(this.modules, function (module) {
+      module.emit.appy(module, arguments);
+    });
+  });
 }
 
 _.extend(Loader.prototype, {
@@ -54,13 +40,6 @@ _.extend(Loader.prototype, {
           if (!this.modules[file] || mtime !== this.modules[file].mtime) {
             console.log('Reloading world module:', file);
             this.game.broadcast('SYSTEM STATUS: Reloading world module:' + file);
-            if (this.modules[file]) {
-              // There's an existing module, we want to remove all
-              // event handlers from it
-              _.each(this.modules[file]._listenersAdded, function (listener) {
-                _this.game.removeListener(listener.event, listener.fn);
-              });
-            }
             // Ok, lets (re)load it!
             var code = fs.readFileSync(fullPath),
                 // Giving the module full access to node, could change
