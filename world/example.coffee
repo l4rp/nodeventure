@@ -1,7 +1,7 @@
-addListener 'joinPlayer', (player, room, game) ->
+handler 'joinPlayer', (player, room, game) ->
   room.broadcast("player #{player} entered the game")
 
-addListener 'leavePlayer', (player, room, game) ->
+handler 'leavePlayer', (player, room, game) ->
   room.broadcast("player #{player} entered the game")
 
 command 'coffee', (rest, player, game) ->
