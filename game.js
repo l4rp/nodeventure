@@ -132,6 +132,7 @@ function Player(game, name) {
   this.game = game;
   this.name = name;
   this.inventory = [];
+  this.health = 100;
 }
 util.inherits(Player, events.EventEmitter);
 
@@ -167,5 +168,8 @@ _.extend(Player.prototype, {
       this.location = id;
       this.game.emit('enterRoom', this, this.getCurrentRoom(), this.game);
     }
+  },
+  isDead: function () {
+    return this.health <= 0;
   }
 });
