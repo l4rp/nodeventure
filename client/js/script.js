@@ -30,3 +30,7 @@ $('#command').keyup(function (e) {
 });
 
 addLine('Connecting...');
+
+
+// JS finished initing, focus on text area
+$("input#command").focus();
