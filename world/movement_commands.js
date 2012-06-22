@@ -18,9 +18,9 @@ command('look',function (rest, player, game) {
       player.write(p.name + ' is here');
     };
   });
-	if (player.getCurrentRoom().items!==undefined) {
-		player.write('There are items here!');
-	}
+  _.map(player.getCurrentRoom().items, function(item) {
+	player.write((item.short || item.name) + ' is here');
+  });
   player.execute('exits');
 });
 
