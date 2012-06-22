@@ -37,6 +37,8 @@ function sendCommand() {
   socket.emit('command', $('#command').val());
   $('#command').val('').focus();
 
+  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+
   // divider...
   clearTimeout(dividerTimeout);
   dividerMessageTrigger();
@@ -83,6 +85,7 @@ function init() {
 }
 
 // INIT !
+
 socket.emit('login', prompt("Name?"));
 init();
 addLine('Connecting...');
