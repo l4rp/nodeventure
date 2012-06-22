@@ -12,13 +12,13 @@ command('say', function (rest, player, game) {
   player.write('You say: ' + rest.trim());
 });
 
+command('shout', function (rest, player, game) {
+  game.broadcast(player.name + ' shouts: ' + rest);
+});
+
 command('cry', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' sobs quietly.', player);
   player.write('You sob quietly');
-});
-
-command('inventory', function (player, room, game) {
-  
 });
 
 command('list', function (rest, player, game) {

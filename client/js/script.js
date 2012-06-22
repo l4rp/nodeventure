@@ -1,7 +1,6 @@
 var socket = io.connect(location.href),
-    lineFeed = [],
-    inputPress = 0,
-
+  lineFeed = [],
+  inputPress = 0,
   // dividers
   dividerTimeout = null,
   dividerTime = 2000,
@@ -15,6 +14,7 @@ function addLine(string, isUser) {
   }
   line.text(string);
   $('#output').append(line);
+  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 }
 
 // add divider

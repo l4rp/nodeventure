@@ -92,6 +92,17 @@ _.extend(Room.prototype, {
     var _this = this;
     return _.filter(_.values(this.game.players), function (player) {return player.location == _this.id;})
   },
+  // Get a player by name
+  getPlayer: function (name) {
+    return _.find(this.getPlayers(), function (p) {return p.name === name;});
+  },
+  // Get a named item in the room, returns the first if there are many
+  // and null if there are none
+  getItem: function (name) {
+    return _.find(this.items, function (item) {
+      return item.name === name;
+    });
+  },
   // Send a message to all players in the room. Optionally you can
   // pass in a player to exclude from the message (for example, if
   // they are the source of the message you might not want them to
@@ -129,6 +140,13 @@ _.extend(Player.prototype, {
       message = {string: message};
     }
     this.emit('write', message);
+  },
+  // Get a named item in the room, returns the first if there are many
+  // and null if there are none
+  getItem: function (name) {
+    return _.find(this.inventory, function (item) {
+      return item.name === name;
+    });
   },
   getCurrentRoom: function () {
     return this.game.rooms[this.location];
