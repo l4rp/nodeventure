@@ -8,7 +8,6 @@ function addLine(string) {
   $('#output').append(line);
 }
 
-
 // set up sockets
 socket.on('write', function (string) {
   addLine(string);
@@ -59,7 +58,6 @@ function init() {
     
     // we've finished adding characters, init
     } else {
-      addLine('Connecting...');
       $("input#command").focus();
     }
   }
@@ -68,3 +66,4 @@ function init() {
 // INIT !
 socket.emit('login', prompt("Name?"));
 init();
+addLine('Connecting...');
