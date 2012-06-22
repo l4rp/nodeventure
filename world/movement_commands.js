@@ -41,10 +41,15 @@ command('exits',function (rest, player, game) {
 });
  
 command('teleport', '"teleport <player>" teleports you to the location of another player', function (rest, player, game) {
-  var destination = game.getPlayer(rest);
+  var destplayer = game.getPlayer(rest), destination;
+  if (destplayer) {
+    destination = destplayer.getCurrentRoom();
+  } else {
+    destination = game.rooms[rest];
+  }
   if (destination) {
     player.getCurrentRoom().broadcast(player.name + ' disappears in a flash of science');
-    player.setCurrentRoom(destination.getCurrentRoom());
+    player.setCurrentRoom(destination);
     player.getCurrentRoom().broadcast(player.name + ' appears in a flash of science');
     player.execute('look');
   } else {

@@ -57,30 +57,40 @@ _.extend(Game.prototype, {
   },
   execute: function (player, string) {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
-        rest = string.trim().slice(command.length).trim();
+        rest = string.trim().slice(command.length).trim(),
+        itemName = rest.split(" ")[0].trim().toLowerCase(),
+        itemCommand = command + ' ' + itemName,
+        commandFn;
 
     if (player.isDead() && !(command === 'godmother' || commands === 'clickheels')) {
       player.write("You're dead! Start acting like it (or type 'godmother')")
     }
 
-    if (!this.commands.hasOwnProperty(command)) {
-      if (player.getCurrentRoom().getExit(command)) {
-        player.execute('go ' + command);
+    try {
+      if (this.commands.hasOwnProperty(itemCommand)) {
+        var item = player.getItem(itemName) || player.getCurrentRoom().getItem(itemName);
+        if (item) {
+          this.commands[itemCommand](rest.trim(), player, item, this);
+        } else {
+          player.write("Can't find a " + itemName);
+        }
+      } else if (!this.commands.hasOwnProperty(command)) {
+        if (player.getCurrentRoom().getExit(command)) {
+          player.execute('go ' + command);
+        } else {
+          player.write("Awfully sorry old chap, but I don't understand: " + string);
+        }
       } else {
-        player.write("Awfully sorry old chap, but I don't understand: " + string);
-      }
-    } else {
-      try {
         this.commands[command](rest.trim(), player, this);
         this.emit('command:'+command, rest.trim(), player, this);
-      } catch (e) {
-        console.log('Error running command: ' + string);
-        console.log(e);
-        console.trace();
-        player.write("OH NO! There was an error handling your command. Watch out for the stack trace!");
-        player.write(e);
-        player.write(e.stack);
       }
+    } catch (e) {
+      console.log('Error running command: ' + string);
+      console.log(e);
+      console.trace();
+      player.write("OH NO! There was an error handling your command. Watch out for the stack trace!");
+      player.write(e);
+      player.write(e.stack);
     }
   },
   // Override EventEmitter's emit to also emit an 'all' event to allow

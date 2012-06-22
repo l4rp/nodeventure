@@ -48,6 +48,10 @@ command('gravity', function (rest, player, game) {
   player.write({'effect': 'flipGravity'});
 });
 
+command('barrelroll', function (rest, player, game) {
+  player.write({'effect': 'barrelroll'});
+});
+
 command('globalthermonuclearwar', function (rest, player, game) {
   player.write('Greetings, Professor Falken.');
   player.write('A strange game. The only winning move is not to play. How about a nice game of chess?');

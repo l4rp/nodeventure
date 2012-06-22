@@ -12,17 +12,5 @@ handler('tick', function () {
         exit = exits[i];
     room.broadcast('The Ninja pads silently to the ' + exit + ' exit');
     ninja.execute('go ' + exit);
-    if (ninja.getCurrentRoom().getPlayers().indexOf('pirate') !== -1) {
-	  ninja('say I hate pirates');
-      var action = Math.floor(Math.random()*2);
-      if (action > 0) {
-        ninja.execute('attack pirate');
-      } else {
-        var exits = _.keys(room.exits),
-            i = Math.floor(Math.random()*exists.length),
-            exit = exits[i];
-        ninja.execute('shove pirate ' + exit);
-      }
-    }
   }
 });
