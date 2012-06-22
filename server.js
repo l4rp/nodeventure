@@ -22,6 +22,10 @@ app.use("/", express.static("./client"));
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function (name) {
+    if (!name.match(/^[a-zA-Z0-9._-]+$/)) {
+      socket.emit('write', {string: 'NICE TRY'});
+      return;
+    }
     var player = game.createPlayer(name);
     player.on('write', function (string) {
       socket.emit('write', string);

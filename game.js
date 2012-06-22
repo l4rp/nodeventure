@@ -36,7 +36,12 @@ _.extend(Game.prototype, {
     _.extend(room, options);
     return room;
   },
-  createCommand: function (command, fun) {
+  createCommand: function (command, description, fun) {
+    if (!fun) {
+      fun = description;
+      description = 'no description for this command. boooo!';
+    }
+    fun.description = description;
     this.commands[command] = fun;
   },
   // Broadcast out a message to all logged in users
@@ -94,13 +99,13 @@ _.extend(Room.prototype, {
   },
   // Get a player by name
   getPlayer: function (name) {
-    return _.find(this.getPlayers(), function (p) {return p.name === name;});
+    return _.find(this.getPlayers(), function (p) {return p.name.toLowerCase() === name.toLowerCase();});
   },
   // Get a named item in the room, returns the first if there are many
   // and null if there are none
   getItem: function (name) {
     return _.find(this.items, function (item) {
-      return item.name === name;
+      return item.name.toLowerCase() === name.toLowerCase();
     });
   },
   // Send a message to all players in the room. Optionally you can
@@ -145,7 +150,7 @@ _.extend(Player.prototype, {
   // and null if there are none
   getItem: function (name) {
     return _.find(this.inventory, function (item) {
-      return item.name === name;
+      return item.name.toLowerCase() === name.toLowerCase();
     });
   },
   getCurrentRoom: function () {

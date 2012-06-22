@@ -3,7 +3,7 @@ command('attack', function (rest, player, game) {
 
   if (victim) {
     player.getCurrentRoom().broadcast(player.name + ' attacks ' + victim.name, player);
-    player.write('You attack ' + victim.name);
+    player.write('You attack ' + victim.name + ", it's super effective!");
   } else {
     player.write('No one to attack by that name');
   }
