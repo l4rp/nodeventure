@@ -1,5 +1,4 @@
 var socket = io.connect(location.href),
-
   // dividers
   dividerTimeout = null,
   dividerTime = 2000,
@@ -10,6 +9,7 @@ function addLine(string) {
   var line = $('<pre>');
   line.text(string);
   $('#output').append(line);
+  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 }
 
 // add divider
@@ -36,10 +36,11 @@ socket.on('disconnect', function () {
 
 // function to send data
 function sendCommand() {
-  socket.emit('command', $('#command').val());
+  var command = $('#command').val();
+  socket.emit('command', command);
+  addLine(command);
   $('#command').val('').focus();
 
-  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 
   // divider...
   clearTimeout(dividerTimeout);
