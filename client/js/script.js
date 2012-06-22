@@ -153,8 +153,11 @@ function getColor(){
 };
 
 function mirror() {
-  console.log("HERE");
   $('html').addClass("mirror");
+};
+
+function mirror() {
+  $('html').removeClass("mirror");
 };
 
 function woah() {
