@@ -7,7 +7,7 @@ command('godmother', function (rest, player, game) {
 
 command('clickheels', function (rest, player, game) {
   player.write('You click your heels');
-  player.getCurrentRoom().broadcast(player.name + ' clicks their heels');
+  player.getCurrentRoom().broadcast(player.name + ' clicks their heels', player);
   if (player.godmotherPresent) {
     player.getCurrentRoom().broadcast(player.name + "'s fairy godmother: Ok, but don't get yourself lost again!");
     player.setCurrentRoom('home');

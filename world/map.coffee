@@ -6,16 +6,13 @@
 
 handler "leaveRoom", (player, room, game) ->
   player.map ||= {}
-  player.write "LEAVE"
   player.map[room.id] ||= { room: room }
   player.map["__previous"] = player.map[room.id]
 
 handler "command:go", (rest, player, game) ->
-  player.write "VIA #{rest}"
   player.map["__current"].entered_via = rest
 
 handler "enterRoom", (player, room, game) ->
-  player.write "ENTER"
   player.map ||= {}
   player.map[room.id] = 
     entered_via: player.last_exit

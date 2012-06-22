@@ -1,4 +1,4 @@
-command('attack', function (rest, player, game) {
+command('attack', 'Attack another player! Example: attack bob', function (rest, player, game) {
   var victim = getTarget(player, rest.trim(), game);
 
   if (victim) {
@@ -20,7 +20,7 @@ function getTarget (player, target, game) {
   return rtn.length > 0 ? rtn[0] : null;
 }
 
-command('shove', function (rest, player, game) {
+command('shove', 'Shove another player somewhere! Example: shove bob north', function (rest, player, game) {
   var bits       = rest.trim().split(' ');
   var victim     = getTarget(player, bits[0], game);
   var exits      = game.rooms[player.location].exits;
