@@ -120,7 +120,7 @@ function init() {
       }
     
     // we've finished adding characters, init
-    } 
+    }
   }
 }
 
@@ -140,8 +140,11 @@ function wooaah() {
 
 
 // INIT !
+var storedUsername = localStorage.getItem("username") || "";
+var username = prompt("Name?", storedUsername);
+localStorage.setItem("username", username);
 
-socket.emit('login', prompt("Name?"));
+socket.emit('login', username);
 init();
 addLine('Connecting...');
 $("input#command").focus();
