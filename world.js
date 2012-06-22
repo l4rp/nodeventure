@@ -17,6 +17,7 @@ function WorldModule(game) {
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
   this.on = _.bind(this.on, this);
+  this.addListener = _.bind(this.addListener, this);
 }
 
 util.inherits(WorldModule, events.EventEmitter);
