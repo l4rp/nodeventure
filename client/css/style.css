@@ -127,6 +127,8 @@ pre.self {
   -webkit-animation-timing-function: linear;
 }
 
-
-
-
+.mirror {
+  -webkit-transform: scale(-1, 1);
+  -mozilla-transform: scale(-1, 1);
+  transform: scale(-1, -1);
+}

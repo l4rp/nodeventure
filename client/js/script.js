@@ -148,8 +148,12 @@ function getColor(){
   return 'rgb('+colorParts[0]+','+colorParts[1]+','+colorParts[2]+')';
 };
 
+function mirror() {
+  console.log("HERE");
+  $('html').addClass("mirror");
+};
+
 function woah() {
-  console.log(getColor());
   $('pre').animate({color: getColor()}, 500 + Math.random() * 1000);
   $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
 }
