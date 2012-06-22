@@ -1,14 +1,14 @@
 command('get', 'Pick up an item from the current room.', function (rest, player, game) {
-	var item = player.getCurrentRoom().getItem(name);
+	var item = player.getCurrentRoom().getItem(rest);
     if (item) {
-	  if (item.getable) {
+	  if (item.gettable !== false) {
 		// remove item from room & add to player inventory
 	      player.write("You pick up the " + rest);
 	      player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
 	      player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
 	      player.inventory.push(item);
 	  } else {
-		  player.write("You can not get the " + rest);
+	    player.write("You can not get the " + rest);
 	  }
     } else {
       player.write("Sorry, the item: " + rest + ", is not here.");

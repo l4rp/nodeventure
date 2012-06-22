@@ -18,6 +18,12 @@ function WorldModule(game) {
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
+  this.character = function (name, properties) {
+    var player = game.createPlayer(name);
+    properties.npc = true;
+    _.extend(player, properties);
+    return player;
+  };
   this.handler = function (event, fn) {
     _this.on(event, function () {
       try {

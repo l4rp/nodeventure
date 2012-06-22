@@ -32,6 +32,9 @@ _.extend(Game.prototype, {
     } 
     return this.players[name];
   },
+  getPlayer: function (name) {
+    return _.find(this.players, function (player) {return player.name.toLowerCase() === name.toLowerCase();});
+  },
   // Create or return a room. Usuaully used by the fascade in loader.js
   createRoom: function (id, options) {
     var room = this.rooms[id] = this.rooms[id] || new Room(this,id);

@@ -3,6 +3,9 @@ var fs = require('fs');
 var playerSaveProperties = ["description", "location", "inventory"];
 
 function savePlayer(player) {
+  if (player.npc) {
+    return;
+  }
   // Save the current player
   if (player.name.indexOf('/') != -1) {
     player.write('SANITY CHECK FAILED, BLUUUURG');
