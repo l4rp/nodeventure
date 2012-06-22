@@ -54,7 +54,7 @@ function init() {
       if (welcome.charAt(counter) === " ") {
         addChar();
       } else {
-        setTimeout(addChar, 50);
+        setTimeout(addChar, 25);
       }
     
     // we've finished adding characters, init
