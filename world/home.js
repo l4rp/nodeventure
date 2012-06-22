@@ -4,7 +4,7 @@ room('home', {
 
 room('meeting-room', {
   description: "This is the breakout meeting room for the Lab for the Recently Possible. There is a dark hole here.",
-  exits: {east: 'home', down: 'hole'}});
+  exits: {east: 'home', down: 'hole', west: 'lobby'}});
 
 room('hole', {
   description: "You are in a deep, dark hole.",
@@ -14,3 +14,7 @@ room('hole2', {
   description: "You scramble and fail to get out. You are trapped here forever. Perhaps you can cry?",
   exits: {up: 'hole2'}});
 
+room('lobby', {
+  description: "You are in the lobby. There is a door to the west. You can see a Window to the East, and there is chest in the corner to your left.",
+  items: [{name: 'chest', short: 'an old chest', getable: false, description: 'old chest is old. Look at how old it is!'}],
+  exits: {east: 'meeting-room'}});

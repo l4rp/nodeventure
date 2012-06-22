@@ -21,9 +21,7 @@ function Loader(path) {
   // Game's emit has been extended to emit an 'all' event on any event
   this.game.on('all', function (event /* ,args...*/) {
     var args = _.toArray(arguments);
-    console.log(args);
     _.each(_this.modules, function (module) {
-      console.log('!!');
       module.emit.apply(module, args);
     });
   });

@@ -18,6 +18,9 @@ command('look',function (rest, player, game) {
       player.write(p.name + ' is here');
     };
   });
+	if (player.getCurrentRoom().items!==undefined) {
+		player.write('There are items here!');
+	}
   player.execute('exits');
 });
 
