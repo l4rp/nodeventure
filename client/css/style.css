@@ -20,6 +20,7 @@ h1{
 body, input, button, pre {
   font-family: "silkscreen", monospace;
   font-weight: 400;
+  -webkit-transition: all 1s ease-in;
 }
 
 pre {
@@ -88,7 +89,14 @@ pre {
     text-shadow: 0 0 3px rgba(0, 255, 0, 1);
     -webkit-transition-property:color, text-shadow;  
     -webkit-transition-duration: 3s, 3s;  
-    -webkit-transition-timing-function: ease-out, ease-in;  
+    -webkit-transition-timing-function: ease-out, ease-in;
+    -moz-transition-property:color, text-shadow;  
+    -moz-transition-duration: 3s, 3s;  
+    -moz-transition-timing-function: ease-out, ease-in;  
+  }
+
+  .reverse-gravity {
+    -webkit-transform:rotate(180deg);
   }
 
 

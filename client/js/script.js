@@ -92,8 +92,12 @@ function init() {
 
 
 // pointless effects
-function blur() {
-  $('body').addClass('blurry');
+function toggleBlur() {
+  $('body').toggleClass('blurry');
+}
+
+function flipGravity() {
+  $('body').toggleClass('reverse-gravity');
 }
 
 function getColor(){
