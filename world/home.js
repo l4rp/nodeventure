@@ -43,5 +43,4 @@ room('street', {
 
 room('alleyway', {
   description: "You are in a dingey and spooky alleyway. To the west a suspicious wooden door awaits you...",
-  exits: {west: 'street', north: 'hall-of-mirrors'}
-  });
+  exits: {west: 'street', north: 'hall-of-mirrors'}});
