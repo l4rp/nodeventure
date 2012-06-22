@@ -21,7 +21,7 @@ command('cry', function (rest, player, game) {
   player.write('You sob quietly');
 });
 
-command('list', function (rest, player, game) {
+command('list', "List all players in the game.", function (rest, player, game) {
   var list = "Players: ";
 
   _.each(game.players, function (pl) {

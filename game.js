@@ -32,6 +32,9 @@ _.extend(Game.prototype, {
     } 
     return this.players[name];
   },
+  getPlayer: function (name) {
+    return _.find(this.players, function (player) {return player.name.toLowerCase() === name.toLowerCase();});
+  },
   // Create or return a room. Usuaully used by the fascade in loader.js
   createRoom: function (id, options) {
     var room = this.rooms[id] = this.rooms[id] || new Room(this,id);
@@ -55,6 +58,11 @@ _.extend(Game.prototype, {
   execute: function (player, string) {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
+
+    if (player.isDead() && (command !== 'godmother' || commands !== 'clickheels')) {
+      player.write("You're dead! Start acting like it (or type 'respawn')")
+    }
+
     if (!this.commands.hasOwnProperty(command)) {
       console.trace();
       player.write("Awfully sorry old chap, but I don't understand: " + string);
@@ -132,6 +140,7 @@ function Player(game, name) {
   this.game = game;
   this.name = name;
   this.inventory = [];
+  this.health = 100;
 }
 util.inherits(Player, events.EventEmitter);
 
@@ -167,5 +176,8 @@ _.extend(Player.prototype, {
       this.location = id;
       this.game.emit('enterRoom', this, this.getCurrentRoom(), this.game);
     }
+  },
+  isDead: function () {
+    return this.health <= 0;
   }
 });
