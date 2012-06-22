@@ -34,7 +34,13 @@ pre {
 /* output */
 #output {
 	margin-top: 6em;
+  padding:0 20px;
 }
+
+  #welcome {
+    font-family: monospace;
+    margin-bottom:3em;
+  }
 
 /* input area */
   #input {
