@@ -1,6 +1,6 @@
 room('home', {
   description: "You are in the Lab For the Recently Possible. A large table sits in the middle of the room around which geeks sit hard at work on some kind of text adventure...",
-  exits: {west: 'meeting-room'},
+  exits: {west: 'meeting-room', east:'switzerland'},
   items: [{short: 'a mighty sword', name: 'sword', description: 'This sword is really really really mighty'}]});
 
 room('meeting-room', {
@@ -41,7 +41,7 @@ room('pier', {
   exits: {west:'beach'}});
 
 room('road-bridge', {
-  description: "You are on a bridge. Go back for now.",
+  description: "You are on a bridge. You can head north.",
   exits: {south: 'outside-dock', north: 'street'}});
 
 room('street', {

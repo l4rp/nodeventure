@@ -154,6 +154,11 @@ function woah() {
   $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
 }
 
+function attack() {
+  $('body').addClass('attack');
+  setTimeout(function(){ $('body').removeClass('attack'); }, 1000);
+}
+
 // locally store the username
 var storedUsername = localStorage.getItem("username") || "";
 var username = prompt("Name?", storedUsername);

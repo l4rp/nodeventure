@@ -14,6 +14,7 @@ function WorldModule(game) {
   // Inject underscore
   this._ = _;
   this.game = game;
+  this.require = require;
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
