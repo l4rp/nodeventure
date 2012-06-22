@@ -32,11 +32,15 @@ command('list', function (rest, player, game) {
 });
 
 command('blur', function (rest, player, game) {
-  player.write({'effect': 'blur'});
+  player.write({'effect': 'toggleBlur'});
 });
 
 command('woah', function (rest, player, game) {
-  player.write({'effect': 'wooaah'});
+  player.write({'effect': 'woah'});
+});
+
+command('gravity', function (rest, player, game) {
+  player.write({'effect': 'flipGravity'});
 });
 
 command('globalthermonuclearwar', function (rest, player, game) {
