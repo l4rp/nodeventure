@@ -26,10 +26,11 @@ _.extend(Game.prototype, {
   createPlayer: function (name) {
     if (!(name in this.players)) {
       this.players[name] = new Player(this, name);
+      this.emit('joinPlayer', this.players[name], this);
     } 
     return this.players[name];
   },
-  // Create or return a room. Usuaully used by the fascade in laoder.js
+  // Create or return a room. Usuaully used by the fascade in loader.js
   createRoom: function (id, options) {
     var room = this.rooms[id] = this.rooms[id] || new Room(this,id);
     _.extend(room, options);

@@ -1,8 +1,8 @@
-handler 'joinPlayer', (player, room, game) ->
-  room.broadcast("player #{player} entered the game")
+handler 'joinPlayer', (player, game) ->
+  game.broadcast("player #{player} entered the game")
 
-handler 'leavePlayer', (player, room, game) ->
-  room.broadcast("player #{player} entered the game")
+handler 'partPlayer', (player, game) ->
+  game.broadcast("player #{player} left the game")
 
 command 'coffee', (rest, player, game) ->
   player.write "Make it yourself"
