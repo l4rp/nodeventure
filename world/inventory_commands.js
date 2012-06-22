@@ -1,16 +1,16 @@
 command('get', 'Pick up an item from the current room.', function (rest, player, game) {
-	var item = player.getCurrentRoom().getItem(rest);
+  var item = player.getCurrentRoom().getItem(rest);
     if (item) {
-	  if (item.gettable !== false) {
-		// remove item from room & add to player inventory
-	      player.write("You pick up the " + rest);
-	      player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
-	      player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
+    if (item.gettable !== false) {
+    // remove item from room & add to player inventory
+        player.write("You pick up the " + rest);
+        player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
+        player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
         game.emit("invget:"+item.name);
-	      player.inventory.push(item);
-	  } else {
-	    player.write("You can not get the " + rest);
-	  }
+        player.inventory.push(item);
+    } else {
+      player.write("You can not get the " + rest);
+    }
     } else {
       player.write("Sorry, the item: " + rest + ", is not here.");
     }
@@ -64,6 +64,7 @@ itemCommand('use','sword', function(rest, player, item) {
 
 itemCommand('use', 'jetpack', function(rest, player, item){
   player.write('You put the jetpack on and press the button marked \'LAUNCH\'');
+  player.getCurrentRoom().broadcast(player.name + ' used the jetpack and disappeared to parts unknown!', player);
   var rooms = _.keys(game.rooms),
   room = rooms[Math.floor(Math.random() * rooms.length)];
   player.setCurrentRoom(room);

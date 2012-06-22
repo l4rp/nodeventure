@@ -37,6 +37,9 @@ io.sockets.on('connection', function (socket) {
     });
     player.execute('look');    
     game.emit('enterRoom',player, player.getCurrentRoom(), game);
+    socket.on('disconnect', function () {
+      delete game.players[player.name];
+    });
   });
 });
 
