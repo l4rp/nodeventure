@@ -3,7 +3,7 @@ var Loader  = require('./loader').Loader,
     argv    = require('optimist')
       .usage("Usage $0 --world=[base world]")
       .default('world', "./world")
-      .default('port', 8989)
+      .default('port', process.env['PORT_WWW'] || 8989)
       .argv,
     loader  = new Loader(argv.world),
     game    = loader.game,
