@@ -114,7 +114,7 @@ function Player(game, name) {
   this.pos = { x: 10000, y: 10000, z: 10000}
   this.game = game;
   this.name = name;
-  this.inventory = {};
+  this.inventory = [];
 }
 util.inherits(Player, events.EventEmitter);
 
@@ -124,8 +124,11 @@ _.extend(Player.prototype, {
     this.game.execute(this, string);
   },
   // Write out a string to the player's client
-  write: function (string) {
-    this.emit('write', string);
+  write: function (message) {
+    if (_.isString(message)) {
+      message = {string: message};
+    }
+    this.emit('write', message);
   },
   getCurrentRoom: function () {
     return this.game.rooms[this.location];

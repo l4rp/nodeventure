@@ -4,11 +4,13 @@
     #resp.push seen.id
   #return resp.join " -> "
 
-#handler "enterRoom", (player, room, game) ->
-  ##home is 0,0
-  #player.pos ||= {x:0, y:0}
+handler "enterRoom", (player, room, game) ->
+  #home is 0,0
+  console.log player.pos
+  {x,y,z} = player.pos
   #player.map ||= []
-  #player.map[player.pos.x][player.pos.y] ||= room
+  #player.map[x][y][z] ||= room
+  #console.log player.map
 
 #command "map", (rest, player, game) ->
   #player.rooms_seen ||= {}
