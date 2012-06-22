@@ -10,3 +10,8 @@ command('say', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' says: ' + rest.trim(), player);
   player.write('You say: ' + rest.trim());
 });
+
+command('cry', function (rest, player, game) {
+  player.getCurrentRoom().broadcast(player.name + ' sobs quietly.', player);
+  player.write('You sob quietly');
+});
