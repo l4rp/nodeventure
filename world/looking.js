@@ -1,4 +1,4 @@
-command('look',function (rest, player, game) {
+command('look', 'Get a list of people and items in the current room or get a description of a person or item.', function (rest, player, game) {
   var room = player.getCurrentRoom();
   if (rest == '') {
     // Look at the current room
@@ -29,6 +29,6 @@ command('look',function (rest, player, game) {
   }
 });
 
-command('iam', function (rest, player, game) {
+command('iam', 'Change the description provided when someone looks at you.', function (rest, player, game) {
   player.description = rest;
 });

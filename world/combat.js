@@ -18,3 +18,9 @@ function getTarget (player, target, game) {
 
   return rtn.length > 0 ? rtn[0] : null;
 }
+
+command('shove', function (rest, player, game) {
+  var bits = rest.trim().split(' ');
+  var victim = getTarget(player, bits[0], game);
+  
+});

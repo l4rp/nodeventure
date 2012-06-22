@@ -1,4 +1,4 @@
-command('go',function (rest, player, game) {
+command('go', 'use an exit, for example "go north"', function (rest, player, game) {
   var currentRoom = player.getCurrentRoom(),
       direction = rest.toLowerCase(),
       destination = currentRoom.getExit(direction);
@@ -11,56 +11,20 @@ command('go',function (rest, player, game) {
   }
 });
 
-command('n',function (rest, player, game) {
-  var currentRoom = player.getCurrentRoom(),
-      direction = 'north',
-      destination = currentRoom.getExit(direction);
-  if (destination) {
-    player.setCurrentRoom(destination);
-    player.write("You go " + direction);
-    player.execute("look");
-  } else {
-    player.write("There is no " + rest + " exit");
-  }
+command('n', 'Shortcut for going north.',function (rest, player, game) {
+  game.execute(player, "go north");
 });
 
-command('e',function (rest, player, game) {
-  var currentRoom = player.getCurrentRoom(),
-      direction = 'east',
-      destination = currentRoom.getExit(direction);
-  if (destination) {
-    player.setCurrentRoom(destination);
-    player.write("You go " + direction);
-    player.execute("look");
-  } else {
-    player.write("There is no " + rest + " exit");
-  }
+command('s','Shortcut for going south.', function (rest, player, game) {
+  game.execute(player, "go south");
 });
 
-command('s',function (rest, player, game) {
-  var currentRoom = player.getCurrentRoom(),
-      direction = 'south',
-      destination = currentRoom.getExit(direction);
-  if (destination) {
-    player.setCurrentRoom(destination);
-    player.write("You go " + direction);
-    player.execute("look");
-  } else {
-    player.write("There is no " + rest + " exit");
-  }
+command('e', 'Shortcut for going east.', function (rest, player, game) {
+  game.execute(player, "go east");
 });
 
-command('w',function (rest, player, game) {
-  var currentRoom = player.getCurrentRoom(),
-      direction = 'west',
-      destination = currentRoom.getExit(direction);
-  if (destination) {
-    player.setCurrentRoom(destination);
-    player.write("You go " + direction);
-    player.execute("look");
-  } else {
-    player.write("There is no " + rest + " exit");
-  }
+command('w','Shortcut for going west.',function (rest, player, game) {
+  game.execute(player, "go west");
 });
 
 command('exits',function (rest, player, game) {
