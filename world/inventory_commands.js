@@ -50,19 +50,19 @@ command('i', "Display a list of all the items you're carrying.", function (rest,
   player.execute('inventory');
 });
 
-command('use', 'Example: use lemon',function (rest, player, game) {
+command('use', 'Example: use lemon',function (rest, player, item) {
   player.write("Can't use " + rest);
 });
 
-itemCommand('use','gemerald', function(player, game, item) {
+itemCommand('use','gemerald', function(rest, player, item) {
     player.write('you used ' + item.name);
 });
   
-itemCommand('use','sword', function(player, game, item) {
+itemCommand('use','sword', function(rest, player, item) {
     player.write('you used ' + item.name);
 });
 
-itemCommand('use', 'jetpack', function(player, game, item){
+itemCommand('use', 'jetpack', function(rest, player, item){
   player.write('You put the jetpack on and press the button marked \'LAUNCH\'');
   var rooms = _.keys(game.rooms),
   room = rooms[Math.floor(Math.random() * rooms.length)];
