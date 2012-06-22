@@ -29,6 +29,6 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-app.listen(8989);
+app.listen(parseInt(process.argv[3] || 8989));
 
 console.log('Listening on port 8989');

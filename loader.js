@@ -12,6 +12,7 @@ var vm = require('vm'),
 module.exports.Loader = Loader;
 
 function Loader(path) {
+  var _this = this;
   this.game = new game.Game();
   this.path = path;
   this.modules = {};
@@ -19,8 +20,11 @@ function Loader(path) {
   setInterval(_.bind(this.update, this), 5000);
   // Game's emit has been extended to emit an 'all' event on any event
   this.game.on('all', function (event /* ,args...*/) {
-    _.each(this.modules, function (module) {
-      module.emit.appy(module, arguments);
+    var args = _.toArray(arguments);
+    console.log(args);
+    _.each(_this.modules, function (module) {
+      console.log('!!');
+      module.emit.apply(module, args);
     });
   });
 }
