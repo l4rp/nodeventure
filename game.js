@@ -53,8 +53,8 @@ _.extend(Game.prototype, {
       player.write("Awfully sorry old chap, but I don't understand: " + string);
     } else {
       try {
-        this.commands[command](rest, player, this);
-        this.emit('command:'+command, rest, player, this);
+        this.commands[command](rest.trim(), player, this);
+        this.emit('command:'+command, rest.trim(), player, this);
       } catch (e) {
         console.log('Error running command: ' + string);
         console.log(e);
@@ -114,6 +114,7 @@ function Player(game, name) {
   this.pos = { x: 0, y: 0, z: 0}
   this.game = game;
   this.name = name;
+  this.inventory = {};
 }
 util.inherits(Player, events.EventEmitter);
 
