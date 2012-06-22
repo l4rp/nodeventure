@@ -68,3 +68,7 @@ function init() {
 
 // INIT !
 init();
+
+$('#send').click(function() {
+    $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+});
