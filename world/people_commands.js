@@ -36,5 +36,5 @@ command('blur', function (rest, player, game) {
 });
 
 command('woah', function (rest, player, game) {
-  player.write({'effect': 'wooaah'});
+  player.write({'effect': 'woah'});
 });

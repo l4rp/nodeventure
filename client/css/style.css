@@ -87,7 +87,7 @@ pre {
     color: transparent;
     text-shadow: 0 0 3px rgba(0, 255, 0, 1);
     -webkit-transition-property:color, text-shadow;  
-    -webkit-transition-duration: 1.5s, 1.5s;  
+    -webkit-transition-duration: 3s, 3s;  
     -webkit-transition-timing-function: ease-out, ease-in;  
   }
 

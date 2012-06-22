@@ -96,12 +96,20 @@ function blur() {
   $('body').addClass('blurry');
 }
 
-var colours = ['#ff0000', '#00ff00', '#0000ff', '#cc9943'];
-function wooaah() {
-  var colourA = colours[Math.floor(Math.random() * colours.length)];
-  var colourB = colours[Math.floor(Math.random() * colours.length)];
-  $('pre').animate({color: colourA}, Math.random() * 500);
-  $('body').animate({backgroundColor: colourB}, Math.random() * 800, wooaah);
+function getColor(){
+  var colorParts = [];
+
+  for (var i = 0; i < 3; i++) {
+    colorParts[i] = Math.floor(Math.random()*255);
+  };
+
+  return 'rgb('+colorParts[0]+','+colorParts[1]+','+colorParts[2]+')';
+};
+
+function woah() {
+  console.log(getColor());
+  $('pre').animate({color: getColor()}, 500 + Math.random() * 1000);
+  $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
 }
 
 
