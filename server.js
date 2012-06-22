@@ -1,6 +1,11 @@
 // Server for websockets based client
 var Loader  = require('./loader').Loader,
-    loader  = new Loader(process.argv[2] || './world'),
+    argv    = require('optimist')
+      .usage("Usage $0 --world=[base world]")
+      .default('world', "./world")
+      .default('port', 8989)
+      .argv,
+    loader  = new Loader(argv.world),
     game    = loader.game,
     fs      = require("fs"),
     express = require("express"),
@@ -29,6 +34,6 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-app.listen(8989);
+app.listen(argv.port);
 
-console.log('Listening on port 8989');
+console.log('Listening on port '+ argv.port);
