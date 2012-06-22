@@ -29,9 +29,16 @@ room('road-crossing', {
   exits: {north: 'outside-dock', south: 'beach'}});
 
 room('beach', {
-  description: "You are at the beach. There is a gang of intimidating seagulls here. Watch your bacon sandwhiches!",
-  items: [{name: 'pebble', short: 'a smooth pebble', getable: true, description: 'a shiny and smooth pebble'}],
-  exits: {north: 'road-crossing'}})
+  description: "You are at the beach. Waves crash against the shore. Towards the east you see a pier. To the west you see the beach stretch to the horizon.",
+  exits: {north: 'road-crossing', east: 'pier', west: 'beach-stretch'}})
+
+room('beach-stretch', {
+  description: "You are at a stretch of beach. There is a gang of intimidating seagulls here. Watch your bacon sandwhiches!",
+  exits: {east: 'beach'}});
+
+room('pier', {
+  description: "You arrive at a rusty pier. The amusements and rides once running are abandoned and silent.",
+  exits: {west:'beach'}});
 
 room('road-bridge', {
   description: "You are on a bridge. Go back for now.",
@@ -42,5 +49,26 @@ room('street', {
   exits: {south: 'outside-dock', east: 'alleyway'}});
 
 room('alleyway', {
-  description: "You are in a dingey and spooky alleyway. To the west a suspicious wooden door awaits you...",
+  description: "You are in a dingey and spooky alleyway. To the north a suspicious wooden door awaits you...",
   exits: {west: 'street', north: 'hall-of-mirrors'}});
+
+room('hall-of-mirrors', {
+  description: "You are in a hall of mirrors, try not to get lost!",
+  exits: {north: 'mirrors-room-1', east: 'mirrors-room-2', west: 'mirrors-room-3'}});
+
+room('mirrors-room-1', {
+  description: "Great, more mirrors... Where to?",
+  exits: {north: 'mirrors-room-2', east: 'mirrors-room-3', south: 'mirrors-room-1'}});
+
+room('mirrors-room-2', {
+  description: "Great, more mirrors... Where to?",
+  exits: {south: 'hall-of-mirrors', east: 'mirrors-room-3', west: 'mirrors-room-1'}});
+
+room('mirrors-room-3', {
+  description: "Great, more mirrors... Where to?",
+  exits: {north: 'mirrors-room-2', south: 'mirrors-room-1', west: 'mirrors-room-end'}});
+
+room('mirrors-room-end', {
+  description: "You can see an exit to the south! On the floor is a quantum gemerald",
+  exits: {south: 'alleyway'},
+  items: [{short: 'gemerald', name: 'gemerald', description: 'This gemerald is pretty shiny'}]});

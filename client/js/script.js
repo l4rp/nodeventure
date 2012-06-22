@@ -1,15 +1,20 @@
 var socket = io.connect(location.href),
-
+  lineFeed = [],
+  inputPress = 0,
   // dividers
   dividerTimeout = null,
   dividerTime = 2000,
   divider = "---";
 
 // function to add new text to the page
-function addLine(string) {
+function addLine(string, isUser) {
   var line = $('<pre>');
+  if (!!isUser) {
+    line.addClass('self');
+  }
   line.text(string);
   $('#output').append(line);
+  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 }
 
 // add divider
@@ -40,8 +45,16 @@ socket.on('disconnect', function () {
 
 // function to send data
 function sendCommand() {
-  socket.emit('command', $('#command').val());
+  var theCommand = $('#command').val();
+  addLine(theCommand, true);
+  socket.emit('command', theCommand);
   $('#command').val('').focus();
+
+  lineFeed.unshift(theCommand);
+
+  if (lineFeed.length === 50) {
+    lineFeed.pop();
+  }
 
   $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 
@@ -50,10 +63,37 @@ function sendCommand() {
   dividerMessageTrigger();
 }
 
+// function to deal with key up and down line feed
+function recallCommand() {
+  var lastCommand = lineFeed[inputPress];
+  $('#command').val(lastCommand);
+
+  if (inputPress < 0) {
+    inputPress = 0;
+  }
+
+  if (inputPress > lineFeed.length) {
+    inputPress = lineFeed.length;
+  }
+}
+
 $('#send').click(sendCommand);
 $('#command').keyup(function (e) {
   if (e.keyCode === 13) {
+    inputPress = 0;
     sendCommand();
+  }
+});
+$('#command').keyup(function (e) {
+  if (e.keyCode === 38) {
+    recallCommand();
+    inputPress++;
+  }
+});
+$('#command').keyup(function (e) {
+  if (e.keyCode === 40) {
+    recallCommand();
+    inputPress--;
   }
 });
 
@@ -84,8 +124,6 @@ function init() {
       }
     
     // we've finished adding characters, init
-    } else {
-      $("input#command").focus();
     }
   }
 }
@@ -116,9 +154,13 @@ function woah() {
   $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
 }
 
+// locally store the username
+var storedUsername = localStorage.getItem("username") || "";
+var username = prompt("Name?", storedUsername);
+localStorage.setItem("username", username);
 
 // INIT !
-
-socket.emit('login', prompt("Name?"));
+socket.emit('login', username);
 init();
 addLine('Connecting...');
+$("input#command").focus();

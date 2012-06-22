@@ -12,13 +12,13 @@ command('say', function (rest, player, game) {
   player.write('You say: ' + rest.trim());
 });
 
+command('shout', function (rest, player, game) {
+  game.broadcast(player.name + ' shouts: ' + rest);
+});
+
 command('cry', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' sobs quietly.', player);
   player.write('You sob quietly');
-});
-
-command('inventory', function (player, room, game) {
-  
 });
 
 command('list', function (rest, player, game) {
@@ -36,5 +36,10 @@ command('blur', function (rest, player, game) {
 });
 
 command('woah', function (rest, player, game) {
-  player.write({'effect': 'woah'});
+  player.write({'effect': 'wooaah'});
+});
+
+command('globalthermonuclearwar', function (rest, player, game) {
+  player.write('Greetings, Professor Falken.');
+  player.write('A strange game. The only winning move is not to play. How about a nice game of chess?');
 });
