@@ -1,5 +1,9 @@
-var socket = io.connect(location.href);
+var socket = io.connect(location.href),
 
+  // dividers
+  dividerTimeout = null,
+  dividerTime = 2000,
+  divider = "---";
 
 // function to add new text to the page
 function addLine(string) {
@@ -8,6 +12,15 @@ function addLine(string) {
   $('#output').append(line);
 }
 
+// add divider
+function dividerMessage() {
+  addLine(divider);
+}
+
+// Start countdown to add divider
+function dividerMessageTrigger() {
+  dividerTimeout = setTimeout(dividerMessage, dividerTime);
+}
 
 // set up sockets
 socket.on('write', function (string) {
@@ -23,7 +36,14 @@ socket.on('disconnect', function () {
 function sendCommand() {
   socket.emit('command', $('#command').val());
   $('#command').val('').focus();
+
+  $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+
+  // divider...
+  clearTimeout(dividerTimeout);
+  dividerMessageTrigger();
 }
+
 $('#send').click(sendCommand);
 $('#command').keyup(function (e) {
   if (e.keyCode === 13) {
@@ -59,16 +79,13 @@ function init() {
     
     // we've finished adding characters, init
     } else {
-      socket.emit('login', prompt("Name?"));
-      addLine('Connecting...');
       $("input#command").focus();
     }
   }
 }
 
 // INIT !
-init();
 
-$('#send').click(function() {
-    $('html, body').animate({scrollTop: $(document).height()}, 'slow');
-});
+socket.emit('login', prompt("Name?"));
+init();
+addLine('Connecting...');
