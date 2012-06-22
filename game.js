@@ -127,7 +127,6 @@ _.extend(Room.prototype, {
 function Player(game, name) {
   events.EventEmitter.call(this);
   this.location = "home";
-  this.pos = { x: 10000, y: 10000, z: 10000}
   this.game = game;
   this.name = name;
   this.inventory = [];
