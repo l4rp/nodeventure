@@ -1,6 +1,6 @@
 // Server for websockets based client
 var Loader  = require('./loader').Loader,
-    loader  = new Loader('./world'),
+    loader  = new Loader(process.argv[2] || './world'),
     game    = loader.game,
     fs      = require("fs"),
     express = require("express"),
