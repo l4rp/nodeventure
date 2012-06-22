@@ -16,7 +16,7 @@ function WorldModule(game) {
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
-  this.on = _.bind(this.on, this);
+  this.handler = _.bind(this.on, this);
 }
 
 util.inherits(WorldModule, events.EventEmitter);

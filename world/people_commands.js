@@ -1,8 +1,8 @@
-on('enterRoom', function (player, room, game) {
+handler('enterRoom', function (player, room, game) {
   room.broadcast(player.name + ' enters the room', player);
 })
 
-on('leaveRoom', function (player, room, game) {
+handler('leaveRoom', function (player, room, game) {
   room.broadcast(player.name + ' leaves the room', player);
 })
 
