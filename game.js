@@ -49,10 +49,12 @@ _.extend(Game.prototype, {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
     if (!this.commands.hasOwnProperty(command)) {
-      player.write("Awfully sorry old chap, but I don't understand");
+      console.trace();
+      player.write("Awfully sorry old chap, but I don't understand: " + string);
     } else {
       try {
-        this.commands[command](rest, player, this);
+        this.commands[command](rest.trim(), player, this);
+        this.emit('command:'+command, rest.trim(), player, this);
       } catch (e) {
         console.log('Error running command: ' + string);
         console.log(e);
@@ -111,6 +113,7 @@ function Player(game, name) {
   this.location = "home";
   this.game = game;
   this.name = name;
+  this.inventory = [];
 }
 util.inherits(Player, events.EventEmitter);
 
@@ -120,8 +123,11 @@ _.extend(Player.prototype, {
     this.game.execute(this, string);
   },
   // Write out a string to the player's client
-  write: function (string) {
-    this.emit('write', string);
+  write: function (message) {
+    if (_.isString(message)) {
+      message = {string: message};
+    }
+    this.emit('write', message);
   },
   getCurrentRoom: function () {
     return this.game.rooms[this.location];

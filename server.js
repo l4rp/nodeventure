@@ -1,12 +1,16 @@
 // Server for websockets based client
 var Loader  = require('./loader').Loader,
-    loader  = new Loader(process.argv[2] || './world'),
+    argv    = require('optimist')
+      .usage("Usage $0 --world=[base world]")
+      .default('world', "./world")
+      .default('port', 8989)
+      .argv,
+    loader  = new Loader(argv.world),
     game    = loader.game,
     fs      = require("fs"),
     express = require("express"),
     app     = express.createServer(),
     io      = require('socket.io').listen(app);
-
 
 // Serve the index.html as the root
 app.get("/", function(req, res) {
@@ -23,12 +27,15 @@ io.sockets.on('connection', function (socket) {
       socket.emit('write', string);
     });
     socket.on('command', function (command) {
-      player.execute(command);
+      if (command) {
+        player.execute(command);
+      }
     });
-    player.execute('look')
+    player.execute('look');    
+    game.emit('enterRoom',player, player.getCurrentRoom(), game);
   });
 });
 
-app.listen(parseInt(process.argv[3] || 8989));
+app.listen(argv.port);
 
-console.log('Listening on port 8989');
+console.log('Listening on port '+ argv.port);

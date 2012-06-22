@@ -13,10 +13,23 @@ function WorldModule(game) {
   _.extend(this, global);
   // Inject underscore
   this._ = _;
+  this.game = game;
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
-  this.handler = _.bind(this.on, this);
+  this.handler = function (event, fn) {
+    _this.on(event, function () {
+      try {
+        fn.apply(_this, arguments);
+      } catch (e) {
+        game.broadcast('Error running handler for event: ' + event);
+        game.broadcast(e);
+        game.broadcast(e.stack);
+        console.log('Error running handler for event: ' + event);
+        console.trace();
+      }
+    });
+  };
 }
 
 util.inherits(WorldModule, events.EventEmitter);
