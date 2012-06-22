@@ -59,7 +59,6 @@ function init() {
     
     // we've finished adding characters, init
     } else {
-      socket.emit('login', prompt("Name?"));
       addLine('Connecting...');
       $("input#command").focus();
     }
@@ -67,4 +66,5 @@ function init() {
 }
 
 // INIT !
+socket.emit('login', prompt("Name?"));
 init();
