@@ -30,3 +30,11 @@ command('list', function (rest, player, game) {
 
   player.write(list.substring(0,list.length-2));
 });
+
+command('blur', function (rest, player, game) {
+  player.write({'effect': 'blur'});
+});
+
+command('woah', function (rest, player, game) {
+  player.write({'effect': 'wooaah'});
+});
