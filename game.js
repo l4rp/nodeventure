@@ -49,6 +49,7 @@ _.extend(Game.prototype, {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
     if (!this.commands.hasOwnProperty(command)) {
+      console.trace();
       player.write("Awfully sorry old chap, but I don't understand: " + string);
     } else {
       try {
