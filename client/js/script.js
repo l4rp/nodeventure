@@ -6,8 +6,10 @@ function addLine(string) {
   $('#output').append(line);
 }
 
-socket.on('write', function (string) {
-  addLine(string);
+socket.on('write', function (message) {
+  if (message.string) {
+    addLine(message.string);
+  }
 });
 
 socket.on('disconnect', function () {
