@@ -45,6 +45,7 @@ pre.self {
 }
 
   #welcome {
+    height: 50px;
     font-family: monospace;
     margin-bottom:3em;
   }
