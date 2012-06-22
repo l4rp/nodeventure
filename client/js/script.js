@@ -1,4 +1,6 @@
 var socket = io.connect(location.href),
+    lineFeed = [],
+    inputPress = 0,
 
   // dividers
   dividerTimeout = null,
@@ -36,8 +38,15 @@ socket.on('disconnect', function () {
 
 // function to send data
 function sendCommand() {
-  socket.emit('command', $('#command').val());
+  var theCommand = $('#command').val();
+  socket.emit('command', theCommand);
   $('#command').val('').focus();
+
+  lineFeed.unshift(theCommand);
+
+  if (lineFeed.length === 50) {
+    lineFeed.pop();
+  }
 
   $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 
@@ -46,10 +55,37 @@ function sendCommand() {
   dividerMessageTrigger();
 }
 
+// function to deal with key up and down line feed
+function recallCommand() {
+  var lastCommand = lineFeed[inputPress];
+  $('#command').val(lastCommand);
+
+  if (inputPress < 0) {
+    inputPress = 0;
+  }
+
+  if (inputPress > lineFeed.length) {
+    inputPress = lineFeed.length;
+  }
+}
+
 $('#send').click(sendCommand);
 $('#command').keyup(function (e) {
   if (e.keyCode === 13) {
+    inputPress = 0;
     sendCommand();
+  }
+});
+$('#command').keyup(function (e) {
+  if (e.keyCode === 38) {
+    recallCommand();
+    inputPress++;
+  }
+});
+$('#command').keyup(function (e) {
+  if (e.keyCode === 40) {
+    recallCommand();
+    inputPress--;
   }
 });
 
@@ -80,9 +116,7 @@ function init() {
       }
     
     // we've finished adding characters, init
-    } else {
-      $("input#command").focus();
-    }
+    } 
   }
 }
 
@@ -91,3 +125,4 @@ function init() {
 socket.emit('login', prompt("Name?"));
 init();
 addLine('Connecting...');
+$("input#command").focus();
