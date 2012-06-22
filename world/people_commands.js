@@ -38,3 +38,8 @@ command('blur', function (rest, player, game) {
 command('woah', function (rest, player, game) {
   player.write({'effect': 'wooaah'});
 });
+
+command('global thermonuclear war', function (rest, player, game) {
+  player.write({'effect': 'Greetings, Professor Falken.'});
+  player.write({'effect': 'A strange game. The only winning move is not to play. How about a nice game of chess?'});
+});
