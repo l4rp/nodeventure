@@ -120,7 +120,7 @@ function init() {
       if (welcome.charAt(counter) === " ") {
         addChar();
       } else {
-        setTimeout(addChar, 25);
+        setTimeout(addChar, 15);
       }
     
     // we've finished adding characters, init
