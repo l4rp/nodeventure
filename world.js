@@ -13,6 +13,7 @@ function WorldModule(game) {
   _.extend(this, global);
   // Inject underscore
   this._ = _;
+  this.game = game;
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
   this.room = _.bind(game.createRoom, game);
