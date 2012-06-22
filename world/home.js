@@ -22,7 +22,7 @@ room('lobby', {
 
 room('outside-dock', {
   description: "You are outside the dock. You are surrounded by waving trees and tall buildings. Infront of you is a road leading to the south or the north.",
-  exits: {north:"road-bridge", south: "road-south", east:"lobby"}});
+  exits: {north:"road-bridge", south: "road-crossing", east:"lobby"}});
 
 room('road-crossing', {
   description: "You are at the crossing. Cars pass by you periodically.",
@@ -31,3 +31,7 @@ room('road-crossing', {
 room('beach', {
   description: "You are at the beach. There is a gang of intimidating seagulls here. Watch your bacon sandwhiches!",
   exits: {north: 'road-crossing'}})
+
+room('road-bridge', {
+  description: "You are on a bridge. Go back for now.",
+  exits: {south: 'outside-dock'}});
