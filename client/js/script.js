@@ -1,11 +1,25 @@
-var socket = io.connect(location.href);
+var socket = io.connect(location.href),
 
+  // dividers
+  dividerTimeout = null,
+  dividerTime = 2000,
+  divider = "---";
 
 // function to add new text to the page
 function addLine(string) {
   var line = $('<pre>');
   line.text(string);
   $('#output').append(line);
+}
+
+// add divider
+function dividerMessage() {
+  addLine(divider);
+}
+
+// Start countdown to add divider
+function dividerMessageTrigger() {
+  dividerTimeout = setTimeout(dividerMessage, dividerTime);
 }
 
 // set up sockets
@@ -22,7 +36,12 @@ socket.on('disconnect', function () {
 function sendCommand() {
   socket.emit('command', $('#command').val());
   $('#command').val('').focus();
+
+  // divider...
+  clearTimeout(dividerTimeout);
+  dividerMessageTrigger();
 }
+
 $('#send').click(sendCommand);
 $('#command').keyup(function (e) {
   if (e.keyCode === 13) {
