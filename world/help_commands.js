@@ -1,8 +1,8 @@
-command('commands', function (rest, player, game) {
+command('commands', 'list all commands available in the game', function (rest, player, game) {
   player.write('Available commands: ' + _.keys(game.commands).join(", "));
 });
 
-command('help', function (rest, player, game) {
+command('help', 'get you some help! Example: "help <command>"', function (rest, player, game) {
   if (rest) {
     var command = game.commands[rest];
     if (command) {

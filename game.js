@@ -10,11 +10,13 @@ module.exports.Game = Game;
 
 // Represents a running game (usually you'd just have one!)
 function Game() {
+  var _this = this;
   // Set up the event emmiter
   events.EventEmitter.call(this);
   this.rooms = {};
   this.players = {};
   this.commands = {};
+  setInterval(function () {_this.emit('tick');}, 1000);
 }
 // We inherit from node's event emmiter to allow events on the game,
 // world modules listen to them via the Fascade in loader.js which

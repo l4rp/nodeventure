@@ -1,18 +1,21 @@
-command('get', function (rest, player, game) {
-  _.map(player.getCurrentRoom().items, function(item) {
-    if (item.name === rest) {
-      // remove item from room & add to player inventory
-      player.write("You pick up the " + rest);
-      player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
-      player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
-      player.inventory.push(item);
+command('get', 'Pick up an item from the current room.', function (rest, player, game) {
+	var item = player.getCurrentRoom().getItem(name);
+    if (item) {
+	  if (item.getable) {
+		// remove item from room & add to player inventory
+	      player.write("You pick up the " + rest);
+	      player.getCurrentRoom().broadcast(player.name + ' picks up the ' + rest, player);
+	      player.getCurrentRoom().items = _.without(player.getCurrentRoom().items, item);
+	      player.inventory.push(item);
+	  } else {
+		  player.write("You can not get the " + rest);
+	  }
     } else {
       player.write("Sorry, the item: " + rest + ", is not here.");
     }
-  });
 });
 
-command('drop', function (rest, player, game) {
+command('drop', 'Leave an item from your inventory in the current room.', function (rest, player, game) {
   _.map(player.inventory, function(item) {
     if (item.name === rest) {
       // remove item from player inventory & add to current room
@@ -26,7 +29,7 @@ command('drop', function (rest, player, game) {
   });
 });
 
-command('inventory', function (rest, player, game) {
+command('inventory', "Display a list of all the items you're carrying.", function (rest, player, game) {
   player.inventory = player.inventory || [];
   console.log(player.inventory);
   if (player.inventory.length == 0) {
@@ -37,7 +40,7 @@ command('inventory', function (rest, player, game) {
   });
 });
 
-command('i', function (rest, player, game) {
+command('i', "Display a list of all the items you're carrying.", function (rest, player, game) {
   player.execute('inventory');
 });
 
