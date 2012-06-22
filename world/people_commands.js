@@ -17,6 +17,10 @@ command('cry', function (rest, player, game) {
   player.write('You sob quietly');
 });
 
+command('inventory', function (player, room, game) {
+  
+});
+
 command('list', function (rest, player, game) {
   var list = "Players: ";
 
