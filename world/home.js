@@ -30,8 +30,17 @@ room('road-crossing', {
 
 room('beach', {
   description: "You are at the beach. There is a gang of intimidating seagulls here. Watch your bacon sandwhiches!",
+  items: [{name: 'pebble', short: 'a smooth pebble', getable: true, description: 'a shiny and smooth pebble'}],
   exits: {north: 'road-crossing'}})
 
 room('road-bridge', {
   description: "You are on a bridge. Go back for now.",
-  exits: {south: 'outside-dock'}});
+  exits: {south: 'outside-dock', north: 'street'}});
+
+room('street', {
+  description: "You step into an erily empty street. An alleyway is to east.",
+  exits: {south: 'outside-dock', east: 'alleyway'}});
+
+room('alleyway', {
+  description: "You are in a dingey and spooky alleyway. To the west a suspicious wooden door awaits you...",
+  exits: {west: 'street', north: 'hall-of-mirrors'}});
