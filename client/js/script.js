@@ -138,6 +138,10 @@ function flipGravity() {
   $('body').toggleClass('reverse-gravity');
 }
 
+function barrelroll() {
+  $('body').toggleClass('roll');
+}
+
 function getColor(){
   var colorParts = [];
 
