@@ -17,6 +17,9 @@ function WorldModule(game) {
   this.require = require;
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
+  this.itemCommand = function (command, item, description, fn) {
+    game.createCommand(command + ' ' + item, description, fn);
+  };
   this.room = _.bind(game.createRoom, game);
   this.character = function (name, properties) {
     var player = game.createPlayer(name);
