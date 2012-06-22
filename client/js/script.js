@@ -149,9 +149,13 @@ function getColor(){
 };
 
 function woah() {
-  console.log(getColor());
   $('pre').animate({color: getColor()}, 500 + Math.random() * 1000);
   $('body').animate({backgroundColor: getColor()}, 500 + Math.random() * 1000, woah);
+}
+
+function unwoah() {
+  $('pre').stop().css('color', '');
+  $('body').stop().css('backgroundColor', '');
 }
 
 function attack() {
