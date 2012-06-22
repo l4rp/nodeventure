@@ -42,8 +42,7 @@ _.extend(Loader.prototype, {
           var mtime = fs.statSync(fullPath).mtime + '';
           // Check if the file has changed
           if (!this.modules[file] || mtime !== this.modules[file].mtime) {
-            console.log('Reloading world module:', file);
-            this.game.broadcast('SYSTEM STATUS: Reloading world module:' + file);
+            this.game.warn('Reloading world module:' + file);
             // Ok, lets (re)load it!
             var code = fs.readFileSync(fullPath, 'utf8'),
                 // Giving the module full access to node, could change
@@ -54,8 +53,7 @@ _.extend(Loader.prototype, {
               try {
                 code = cs.compile(code);
               } catch(e) {
-                this.game.broadcast('FAILED TO COMPILE COFFEE SCRIPT: ' + e);
-                console.log('FAILED TO COMPILE COFFEE SCRIPT, MOVING ON');
+                this.game.error('FAILED TO COMPILE COFFEE SCRIPT: ' + e);
                 continue;
               }
             }
@@ -64,9 +62,7 @@ _.extend(Loader.prototype, {
             try {
               vm.runInNewContext(code, module, fullPath);
             } catch (e) {
-              var message = "Error loading world module: " + fullPath + "\n" + e.stack;
-              console.log(message);
-              this.game.broadcast(message);
+              this.game.error("Loading world module: " + fullPath + "\n" + e.stack);
             }
             this.modules[file] = module;
           }
