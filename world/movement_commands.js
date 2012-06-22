@@ -2,6 +2,7 @@ command('go',function (rest, player, game) {
   var currentRoom = player.getCurrentRoom(),
       destination = currentRoom.getExit(rest.toLowerCase());
   if (destination) {
+    player.setPreviousRoom(destination);
     player.setCurrentRoom(destination);
     player.write("You go " + rest);
     player.execute("look");
