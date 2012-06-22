@@ -54,6 +54,7 @@ _.extend(Game.prototype, {
     } else {
       try {
         this.commands[command](rest, player, this);
+        this.emit('command:'+command, rest, player, this);
       } catch (e) {
         console.log('Error running command: ' + string);
         console.log(e);
