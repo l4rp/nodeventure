@@ -12,7 +12,6 @@ var Loader  = require('./loader').Loader,
     app     = express.createServer(),
     io      = require('socket.io').listen(app);
 
-
 // Serve the index.html as the root
 app.get("/", function(req, res) {
   fs.createReadStream("./client/index.html").pipe(res);
