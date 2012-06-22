@@ -111,6 +111,7 @@ function Player(game, name) {
   this.location = "home";
   this.game = game;
   this.name = name;
+  this.inventory = {};
 }
 util.inherits(Player, events.EventEmitter);
 
