@@ -1,8 +1,23 @@
 command('go',function (rest, player, game) {
   var currentRoom = player.getCurrentRoom(),
-      destination = currentRoom.getExit(rest.toLowerCase());
+      direction = rest.toLowerCase(),
+      destination = currentRoom.getExit(direction);
   if (destination) {
-    //player.setPreviousRoom(currentRoom);
+    player.prevPos = player.pos;
+    switch(direction) {
+      case "north":
+        player.pos.x++;
+      case "south":
+        player.pos.x--;
+      case "east":
+        player.pos.y++;
+      case "west":
+        player.pos.y--;
+      case "down":
+        player.pos.z--;
+      case "up":
+        player.pos.z++;
+    };
     player.setCurrentRoom(destination);
     player.write("You go " + rest);
     player.execute("look");
