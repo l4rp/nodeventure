@@ -55,6 +55,11 @@ _.extend(Game.prototype, {
   execute: function (player, string) {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim();
+
+    if (player.isDead() && (command !== 'godmother' || commands !== 'clickheels')) {
+      player.write("You're dead! Start acting like it (or type 'respawn')")
+    }
+
     if (!this.commands.hasOwnProperty(command)) {
       console.trace();
       player.write("Awfully sorry old chap, but I don't understand: " + string);
