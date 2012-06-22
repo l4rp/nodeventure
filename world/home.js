@@ -17,7 +17,7 @@ room('hole2', {
 
 room('lobby', {
   description: "You are in the lobby. There is a door to the west. You can see a Window to the East, and there is chest in the corner to your left.",
-  items: [{name: 'chest', short: 'an old chest', getable: false, description: 'old chest is old. Look at how old it is!'}],
+  items: [{name: 'chest', short: 'an old chest', getable: false, description: 'old chest is old. Look at how old it is!'},{name: 'window', short: 'a window', getable: false, description: 'You look out the window, there are trees. A gentle breeze blows over a lilly pond and a swan gracefully moves and turns to look at you. Life is good. Nothing to see here... move on.'}],
   exits: {east: 'meeting-room', west: 'outside-dock'}});
 
 room('outside-dock', {

@@ -1,5 +1,5 @@
 command('get', 'Pick up an item from the current room.', function (rest, player, game) {
-	var item = player.getCurrentRoom().getItem(name);
+	var item = player.getCurrentRoom().getItem(rest);
     if (item) {
 	  if (item.getable) {
 		// remove item from room & add to player inventory
