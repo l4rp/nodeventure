@@ -51,7 +51,13 @@ _.extend(Loader.prototype, {
                 module = new WorldModule(this.game);
 
             if(type[1] == 'coffee') {
-              code = cs.compile(code);
+              try {
+                code = cs.compile(code);
+              } catch(e) {
+                this.game.broadcast('FAILED TO COMPILE COFFEE SCRIPT: ' + e);
+                console.log('FAILED TO COMPILE COFFEE SCRIPT, MOVING ON');
+                continue;
+              }
             }
 
             module.mtime = mtime;

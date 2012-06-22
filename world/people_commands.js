@@ -10,6 +10,7 @@ handler('leaveRoom', function (player, room, game) {
 command('say', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' says: ' + rest.trim(), player);
   player.write('You say: ' + rest.trim());
+  game.emit('playerTalk', player, rest);
 });
 
 command('shout', function (rest, player, game) {
@@ -37,6 +38,10 @@ command('blur', function (rest, player, game) {
 
 command('woah', function (rest, player, game) {
   player.write({'effect': 'woah'});
+});
+
+command('unwoah', function (rest, player, game) {
+  player.write({'effect': 'unwoah'});
 });
 
 command('gravity', function (rest, player, game) {

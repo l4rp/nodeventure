@@ -27,6 +27,14 @@ command('w','Shortcut for going west.',function (rest, player, game) {
   game.execute(player, "go west");
 });
 
+command('u', 'Shortcut for going up.', function (rest, player, game) {
+  game.execute(player, "go up");
+});
+
+command('d','Shortcut for going down.',function (rest, player, game) {
+  game.execute(player, "go down");
+});
+
 command('exits',function (rest, player, game) {
   var exits = Object.keys(player.getCurrentRoom().exits);
   player.write("Exits: " + exits.join(","));

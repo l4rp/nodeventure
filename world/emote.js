@@ -1,4 +1,4 @@
-command('fart', function (rest, player, game) {
+command('fart', 'Let one off. You can also let a silent one off.', function (rest, player, game) {
   if (rest == 'silently') {
     player.write('You fart silently, yet deadly');
     setTimeout(function () {
@@ -10,6 +10,6 @@ command('fart', function (rest, player, game) {
   }
 });
 
-command('emote', function (rest, player, game) {
+command('emote', 'Make an emotion. Example: emote smiles.', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' ' + rest);
 });

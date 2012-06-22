@@ -4,7 +4,8 @@ room('home', {
   items: [{short: 'a mighty sword', name: 'sword', description: 'This sword is really really really mighty'}]});
 
 room('meeting-room', {
-  description: "This is the breakout meeting room for the Lab for the Recently Possible. There is a dark hole here.",
+  description: "This is the 'Room of Ideas' at the Lab for the Recently Possible. There is a dark hole here.",
+  items: [{short: 'a mirror', name: 'mirror', description: 'This mirror makes things look different...'}],
   exits: {east: 'home', down: 'hole', west: 'lobby'}});
 
 room('hole', {
@@ -13,13 +14,14 @@ room('hole', {
 
 room('hole2', {
   description: "You scramble and fail to get out. You are trapped here forever. Perhaps you can cry?",
-  items: [{short: 'white chalk' , gettable: false, name: 'chalk', description: 'A bit of white chalk. You could mark the years you are going to be stuck here.'}],
+  items: [{short: 'white chalk' , gettable: false, name: 'chalk', description: 'A bit of white chalk. You could mark the years you are going to be stuck here.'},
+          {short: 'a bottle of rum', name: 'rum', description: 'A large bottle full of rum.  The label says "Blackbeard\'s Hearty Rum - The Original Gutburner"'}],
   exits: {up: 'hole2'}});
 
 
 room('lobby', {
   description: "You are in the lobby. There is a door to the west. You can see a Window to the East, and there is chest in the corner to your left.",
-  items: [{name: 'chest', short: 'an old chest', gettable: false, description: 'old chest is old. Look at how old it is!'},{name: 'window', short: 'a window', gettable: false, description: 'You look out the window, there are trees. A gentle breeze blows over a lilly pond and a swan gracefully moves and turns to look at you. Life is good. Nothing to see here... move on.'}],
+  items: [{name: 'chest', short: 'an old chest', gettable: false, description: 'old chest is old. Look at how old it is!'},{name: 'window', short: 'a window', gettable: false, description: 'You look out the window, there are trees. A gentle breeze blows over a lily pond and a swan gracefully moves and turns to look at you. Life is good. Nothing to see here... move on.'}],
   exits: {east: 'meeting-room', west: 'outside-dock'}});
 
 room('outside-dock', {
@@ -36,7 +38,7 @@ room('road-bridge', {
   exits: {south: 'outside-dock', north: 'street'}});
 
 room('street', {
-  description: "You step into an erily empty street. An alleyway is to east.",
+  description: "You step into an eerily empty street. An alleyway is to east.",
   exits: {south: 'outside-dock', east: 'alleyway'}});
 
 room('alleyway', {

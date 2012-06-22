@@ -39,7 +39,7 @@ socket.on('write', function (message) {
 });
 socket.on('disconnect', function () {
   addLine('DISCONNECTED!');
-  addLine('Reload to reconnect...');
+  connect();
 });
 
 
@@ -165,7 +165,10 @@ var username = prompt("Name?", storedUsername);
 localStorage.setItem("username", username);
 
 // INIT !
-socket.emit('login', username);
-init();
-addLine('Connecting...');
-$("input#command").focus();
+function connect() {
+  socket.emit('login', username);
+  init();
+  addLine('Connecting...');
+  $("input#command").focus();
+}
+connect();
