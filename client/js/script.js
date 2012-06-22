@@ -36,7 +36,7 @@ $('#command').keyup(function (e) {
 function init() {
   var welcome, $line, counter, length;
   welcome = '              _                 _       \n _ _  ___  __| |_____ _____ _ _| |_ _  _ _ _ ___ \n| \' \\/ _ \\/ _` / -_) V / -_) \' \\  _| || | \'_/ -_)\n|_||_\\___/\\__,_\\___|\\_/\\___|_||_\\__|\\_,_|_| \\___|';
-  $line = $('<pre>');
+  $line = $('<pre id="welcome">');
   $('#output').append($line);
 
   counter = 0;

@@ -34,6 +34,7 @@ pre {
 /* output */
 #output {
 	margin-top: 6em;
+  padding:0 20px;
 }
 
   #welcome {
