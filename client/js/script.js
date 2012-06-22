@@ -8,8 +8,11 @@ var socket = io.connect(location.href),
   divider = "---";
 
 // function to add new text to the page
-function addLine(string) {
+function addLine(string, isUser) {
   var line = $('<pre>');
+  if (!!isUser) {
+    line.addClass('self');
+  }
   line.text(string);
   $('#output').append(line);
 }
@@ -43,6 +46,7 @@ socket.on('disconnect', function () {
 // function to send data
 function sendCommand() {
   var theCommand = $('#command').val();
+  addLine(theCommand, true);
   socket.emit('command', theCommand);
   $('#command').val('').focus();
 
@@ -138,12 +142,12 @@ function wooaah() {
   $('body').animate({backgroundColor: colourB}, Math.random() * 800, wooaah);
 }
 
-
-// INIT !
+// locally store the username
 var storedUsername = localStorage.getItem("username") || "";
 var username = prompt("Name?", storedUsername);
 localStorage.setItem("username", username);
 
+// INIT !
 socket.emit('login', username);
 init();
 addLine('Connecting...');
