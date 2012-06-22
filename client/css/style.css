@@ -2,16 +2,44 @@
 body {
   background:#000;
   color:lime;
+  margin: 0;
+}
+header {
+	background-color: lime;
+	color: black;
+	padding: 20px 10px;
+	position: fixed;
+	top:0;
+    left:0;
+    right:0;
+}
+h1{
+	margin: 0;
+}
+/* font */
+body, input, button, pre {
+  font-family: "silkscreen", monospace;
+  font-weight: 400;
 }
 
-/* font */
-body, input, button {
-  font-family: monospace;
+pre {
+	font-size: 1.2em;
+	white-space: pre-wrap;       
+ 	white-space: -moz-pre-wrap;  
+ 	white-space: -pre-wrap;      
+ 	white-space: -o-pre-wrap;    
+ 	word-wrap: break-word;
 }
 
 /* output */
-  #output {
+#output {
+	margin-top: 6em;
+  padding:0 20px;
+}
 
+  #welcome {
+    font-family: monospace;
+    margin-bottom:3em;
   }
 
 /* input area */

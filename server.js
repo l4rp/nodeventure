@@ -27,7 +27,9 @@ io.sockets.on('connection', function (socket) {
       socket.emit('write', string);
     });
     socket.on('command', function (command) {
-      player.execute(command);
+      if (command) {
+        player.execute(command);
+      }
     });
     player.execute('look');    
     game.emit('enterRoom',player, player.getCurrentRoom(), game);
