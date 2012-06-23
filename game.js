@@ -55,6 +55,14 @@ _.extend(Game.prototype, {
       player.write(message);
     });
   },
+  error: function(message) {
+    this.broadcast({error:{string: message, type: 'error'}});
+    console.log(message);
+  },
+  warn: function(message) {
+    this.broadcast({error:{string: message}});
+    console.log(message);
+  },
   execute: function (player, string) {
     var command = string.trim().split(" ",1)[0].toLowerCase(),
         rest = string.trim().slice(command.length).trim(),

@@ -7,8 +7,9 @@ var socket = io.connect(location.href),
   divider = "---";
 
 // function to add new text to the page
-function addLine(string, isUser) {
+function addLine(string, isUser,cls) {
   var line = $('<pre>');
+  if(cls) line.addClass(cls);
   if (!!isUser) {
     line.addClass('self');
   }
@@ -35,6 +36,11 @@ socket.on('write', function (message) {
 
   if (message.effect) {
     window[message.effect]();
+  }
+
+  if (message.error) {
+    addLine(message.error.string, 0, message.error.type||"warn");
+    console.log(message.error.string);
   }
 });
 socket.on('disconnect', function () {
