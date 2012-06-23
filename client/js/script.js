@@ -7,13 +7,12 @@ var socket = io.connect(location.href),
   divider = "---";
 
 // function to add new text to the page
-function addLine(string, isUser,cls) {
+function addLine(string, opts) {
+  if (!opts) opts = {};
   var line = $('<pre>');
-  if(cls) line.addClass(cls);
-  if (!!isUser) {
-    line.addClass('self');
-  }
-  line.text(string);
+  if(opts.cls) line.addClass(opts.cls);
+
+  opts.html ? line.html(string) : line.text(string);
   $('#output').append(line);
   $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 }
@@ -34,15 +33,20 @@ socket.on('write', function (message) {
     addLine(message.string);
   }
 
+  if (message.html) {
+    addLine(message.html,{ html: true });
+  }
+
   if (message.effect) {
     window[message.effect]();
   }
 
   if (message.error) {
-    addLine(message.error.string, 0, message.error.type||"warn");
+    addLine(message.error.string, { cls: message.error.type||"warn"});
     console.log(message.error.string);
   }
 });
+
 socket.on('disconnect', function () {
   addLine('DISCONNECTED!');
   connect();
@@ -52,7 +56,7 @@ socket.on('disconnect', function () {
 // function to send data
 function sendCommand() {
   var theCommand = $('#command').val();
-  addLine(theCommand, true);
+  addLine(theCommand, {cls:"user"});
   socket.emit('command', theCommand);
   $('#command').val('').focus();
 
