@@ -1,4 +1,11 @@
 /* Styles here! */
+body, input, button, pre {  /* font */
+  font-family: "silkscreen", monospace;
+  font-weight: 400;
+  -webkit-transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+}
+
 body {
   background:#000;
   color:lime;
@@ -10,44 +17,40 @@ header {
 	padding: 20px 10px;
 	position: fixed;
 	top:0;
-    left:0;
-    right:0;
+  left:0;
+  right:0;
 }
 h1{
 	margin: 0;
 }
-/* font */
-body, input, button, pre {
-  font-family: "silkscreen", monospace;
-  font-weight: 400;
-  -webkit-transition: all 1s ease-in;
-}
-
-pre {
-	font-size: 1.2em;
-	white-space: pre-wrap;       
- 	white-space: -moz-pre-wrap;  
- 	white-space: -pre-wrap;      
- 	white-space: -o-pre-wrap;    
- 	word-wrap: break-word;
-}
-
-pre.self {
-  color:#f90;
-}
 
 /* output */
-#output {
-
-	margin: 6em 0 8em 0;
+  #output {
+  	margin: 6em 0 8em 0;
   	padding:0 20px;
-
-}
+  }
 
   #welcome {
     height: 50px;
     font-family: monospace;
     margin-bottom:3em;
+  }
+
+  pre {
+    font-size: 1.2em;
+    white-space: pre-wrap;       
+    white-space: -moz-pre-wrap;  
+    white-space: -pre-wrap;      
+    white-space: -o-pre-wrap;    
+    word-wrap: break-word;
+  }
+
+  pre.self {
+    color:#f90;
+  }
+
+  pre.warn {
+    opacity: 0.5;
   }
 
 /* input area */
@@ -88,7 +91,8 @@ pre.self {
     cursor: pointer;
   }
 
-  /* effects */
+
+/* effects */
   .blurry {
     color: transparent;
     text-shadow: 0 0 3px rgba(0, 255, 0, 1);
@@ -105,45 +109,84 @@ pre.self {
     -moz-transform:rotate(180deg);
   }
 
-@-webkit-keyframes attack {
-  0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
-  10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
-  30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
-  40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
-  50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
-  70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
-  80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
-  90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
-  100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
-}
+  .roll {
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+  }
 
-.attack {
-  -webkit-animation-name: attack;
-  -webkit-animation-duration: 0.8s;
-  -webkit-transform-origin:50% 50%;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: linear;
-}
+  @-webkit-keyframes attack {
+    0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+    10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+    30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+    40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+    50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+    70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+    80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+    90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+    100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+  }
 
-.mirror {
-  -webkit-transform: scale(-1, 1);
-  -mozilla-transform: scale(-1, 1);
-  transform: scale(-1, -1);
-}
+  .attack {
+    -webkit-animation-name: attack;
+    -webkit-animation-duration: 0.8s;
+    -webkit-transform-origin:50% 50%;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+  }
 
-@-webkit-keyframes blinker {  
-  from { opacity: 1.0; }
-  to { opacity: 0.0; }
-}
+  .mirror {
+    -webkit-transform: scale(-1, 1);
+    -mozilla-transform: scale(-1, 1);
+    transform: scale(-1, -1);
+  }
 
-.error {
-  -webkit-animation-name: blinker;  
-  -webkit-animation-iteration-count: 10;  
-  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
-  -webkit-animation-duration: 0.5s; 
-}
+  @-webkit-keyframes blinker {  
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+  }
+
+  .error {
+    -webkit-animation-name: blinker;  
+    -webkit-animation-iteration-count: 10;  
+    -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    -webkit-animation-duration: 0.5s; 
+  }
+
+
+/* responsive */
+  @media (max-width:480px) {
+    header {
+      padding: 10px;
+    }
+    h1{
+      font-size:16px;
+    }
+    #output {
+      margin: 2em 0 5em 0;
+      padding:0 10px;
+    }
+    #welcome {
+      font-size:8px;
+      margin-bottom:0;
+    }
+    pre {
+      font-size:1em;
+    }
+    #input {
+      padding:5px 2.5% 10px 2.5%;
+    }
+    #input label {
+      font-size:14px;
+      margin-bottom:5px;
+    }
+    #input input,
+    #input button {
+      font-size:14px;
+      padding:5px 1%;
+    }
+  }
 
 pre.warn {
   opacity: 0.5;
@@ -164,4 +207,3 @@ div.room p.name {
   font-size: 12px;
   color: black;
 }
-

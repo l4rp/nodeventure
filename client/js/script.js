@@ -1,10 +1,16 @@
-var socket = io.connect(location.href),
+/*
+ * Nodeventure client JS
+ */
+var
+  socket = io.connect(location.href),
   lineFeed = [],
   inputPress = 0,
+
   // dividers
   dividerTimeout = null,
   dividerTime = 2000,
   divider = "---";
+
 
 // function to add new text to the page
 function addLine(string, opts) {
@@ -17,6 +23,7 @@ function addLine(string, opts) {
   $('html, body').animate({scrollTop: $(document).height()}, 'slow');
 }
 
+
 // add divider
 function dividerMessage() {
   addLine(divider);
@@ -26,6 +33,7 @@ function dividerMessage() {
 function dividerMessageTrigger() {
   dividerTimeout = setTimeout(dividerMessage, dividerTime);
 }
+
 
 // set up sockets
 socket.on('write', function (message) {
@@ -73,6 +81,7 @@ function sendCommand() {
   dividerMessageTrigger();
 }
 
+
 // function to deal with key up and down line feed
 function recallCommand() {
   var lastCommand = lineFeed[inputPress];
@@ -87,6 +96,8 @@ function recallCommand() {
   }
 }
 
+
+// command form submit
 $('#send').click(sendCommand);
 $('#command').keyup(function (e) {
   if (e.keyCode === 13) {
@@ -148,23 +159,27 @@ function flipGravity() {
   $('body').toggleClass('reverse-gravity');
 }
 
+function barrelroll() {
+  $('body').toggleClass('roll');
+}
+
 function getColor(){
   var colorParts = [];
 
   for (var i = 0; i < 3; i++) {
     colorParts[i] = Math.floor(Math.random()*255);
-  };
+  }
 
   return 'rgb('+colorParts[0]+','+colorParts[1]+','+colorParts[2]+')';
-};
+}
 
 function mirror() {
   $('html').addClass("mirror");
-};
+}
 
 function mirror() {
   $('html').removeClass("mirror");
-};
+}
 
 function woah() {
   $('pre').animate({color: getColor()}, 500 + Math.random() * 1000);
@@ -181,10 +196,12 @@ function attack() {
   setTimeout(function(){ $('body').removeClass('attack'); }, 1000);
 }
 
+
 // locally store the username
 var storedUsername = localStorage.getItem("username") || "";
 var username = prompt("Name?", storedUsername);
 localStorage.setItem("username", username);
+
 
 // INIT !
 function connect() {
