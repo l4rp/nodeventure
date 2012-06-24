@@ -177,7 +177,7 @@ function mirror() {
   $('html').addClass("mirror");
 }
 
-function mirror() {
+function unmirror() {
   $('html').removeClass("mirror");
 }
 

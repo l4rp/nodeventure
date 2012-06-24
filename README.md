@@ -28,7 +28,7 @@ http://l4rp.com/
 
 http://lanyrd.com/2012/l4rp-ta/
 
-Come help create a multi-player Text Adventure. We'll start with text and a storyline, and then add pictures to the scenes.
+Come help create a multi-player Text Adventure. We'll start with text and a storyline, and then maybe add pictures to the scenes.
 
 Non-programmers are welcome - we need ideas, words, artwork, design and all sorts of creativity...
 

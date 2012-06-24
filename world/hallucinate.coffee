@@ -1,6 +1,8 @@
-handler "invuse:mirror", (rest, player, game) ->
-  player.write {effect: "mirror"} 
-  player.write "Hi, Sexy"
-
-handler "invdrop:mirror", (rest, player, game) ->
-  player.write {effect: "unmirror"} 
+itemCommand 'use', 'mirror', (rest, player, game) ->
+  if player.mirrored
+    player.mirrored = false
+    player.write {effect: "unmirror"}
+  else
+    player.mirrored = true
+    player.write {effect: "mirror"}
+    player.write "Hi, Sexy"
