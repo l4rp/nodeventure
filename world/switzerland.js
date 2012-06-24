@@ -19,9 +19,11 @@ room('swiss-slope', {
     description: "Wow. You are falling. Fast. As the snow gathers around your ears, eyes and nostrils, and the wind rushes into the very soul of your fragile existence, you land on your feet on the soft ground. \nIn front of you is an immense expanse of water. The lake is bathed in golden green light. You feel at peace.",
     exits: {up: 'pine-tree', east: 'cave'},
 items: [
-  {short: 'water', name: 'water', description: 'Some water from a Swiss lake.'},
-  {short: 'a jetpack', name: 'jetpack', description: 'it looks like a broken jetpack'}
 ]});
+
+item('swiss-slope', 'jetpack', 120, {short: 'a jetpack', name: 'jetpack', description: 'it looks like a broken jetpack'});
+
+item('swiss-slope', 'water', 0, {short: 'water', name: 'water', description: 'Some water from a Swiss lake.'});
 
 var mushroom = {short: 'suspicious mushroom', name: 'mushroom', description: 'A suspicious looking mushroom.'};
 
