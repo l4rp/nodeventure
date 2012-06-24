@@ -13,10 +13,15 @@ room('hole', {
   exits: {up: 'hole2'}});
 
 room('hole2', {
-  description: "You scramble and fail to get out. You are trapped here forever. Perhaps you can cry?",
+  description: "You scramble and fail to get out. You are trapped here forever. Perhaps you can cry? But wait a minute! Is that a rope?",
   items: [{short: 'white chalk' , gettable: false, name: 'chalk', description: 'A bit of white chalk. You could mark the years you are going to be stuck here.'},
           {short: 'a bottle of rum', name: 'rum', description: 'A large bottle full of rum.  The label says "Blackbeard\'s Hearty Rum - The Original Gutburner"'}],
-  exits: {up: 'hole2'}});
+  exits: {up: 'hole2', rope: 'meeting-room'}});
+
+handler('roomTransition:hole2:meeting-room', function (player, from, to) {
+  player.write('You climb the rope out of the hole');
+  from.broadcast(player.name + ' climbs the rope out of the hole', player);
+});
 
 
 room('lobby', {

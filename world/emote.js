@@ -13,3 +13,8 @@ command('fart', 'Let one off. You can also let a silent one off.', function (res
 command('emote', 'Make an emotion. Example: emote smiles.', function (rest, player, game) {
   player.getCurrentRoom().broadcast(player.name + ' ' + rest);
 });
+
+command('fnarr', 'Snigger at some innuendo', function (rest,player, game) {
+  player.write('fnar! fnar! you exclaim');
+  player.getCurrentRoom().broadcast('fnar! fnar! exclaims ' + player.name, player);
+});

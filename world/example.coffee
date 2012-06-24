@@ -7,4 +7,3 @@ handler 'partPlayer', (player, game) ->
 command 'coffee', (rest, player, game) ->
   player.write "Make it yourself"
 
-

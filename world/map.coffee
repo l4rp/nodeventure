@@ -1,8 +1,13 @@
-#drawRoom = (player) ->
-  #resp = []
-  #for seen in Object.keys(seen)
-    #resp.push seen.id
-  #return resp.join " -> "
+trumpet = require('trumpet')
+stream = require('stream')
+room = """
+<div class="map">
+  <div class="room">
+    <p class="name">Room Name</p>
+  </div>
+</div>
+"""
+
 opposite =
   west: 'east'
   east: 'west'
@@ -19,7 +24,6 @@ handler "leaveRoom", (player, room, game) ->
 handler "command:go", (rest, player, game) ->
   player.map.__current?.entered_via = opposite[rest]
   player.map.__previous?.left_via = rest
-  console.log player.map
 
 handler "enterRoom", (player, room, game) ->
   player.map ||= {}
@@ -35,32 +39,18 @@ handler "enterRoom", (player, room, game) ->
     else
       player.write "Can't retreat any further... Perhaps you need some www.bearsemen.com"
 
-default_room = """
-            N
-            N
-            N
-    XXXXXXXXXXXXXXXXXX
-    X                X
-    X                X
-    X                X
-WWWWXZZZZZZZZZZZZZZZZXEEEE
-    X                X
-    X OOOOOOOOOOOOOO X
-    X                X
-    XXXXXXXXXXXXXXXXXX
-            S
-            S
-            S
-"""
-
 command "map", (rest, player, game) ->
-  room = default_room
+  #give a map of the local area
   map = player.map.__current
-  #room = room.replace(/\s/g,"&nbsp;")
-  #for d in ['N','S','E','W']
-    #rx = new RegExp(d+"*")
-    #room = room.replace(rx,"&nbsp;")
-  player.write(room)
+  tr = trumpet()
+  tr.update("p.name", map.room.id)
 
+  html = ""
+  tr.on "data", (buffer) -> html += buffer
 
+  tr.on "end", (buffer) ->
+    console.log html
+    player.write html: html
 
+  tr.write(room)
+  tr.end()

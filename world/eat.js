@@ -6,7 +6,7 @@ var tripThings = ['stares intently at their hands',
                   'sits and giggles',
                   'realises that the universe is infinite, and that icecream would be awesome',
                   'is argumentative with a peanut',
-		  'has lost all sense of time'];
+                  'has lost all sense of time'];
 
 command('eat', function (rest, player) {
 //   game.emit('eat:' + rest, player);

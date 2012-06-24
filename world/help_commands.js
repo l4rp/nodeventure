@@ -16,11 +16,15 @@ command('help', 'get you some help! Example: "help <command>"', function (rest, 
 });
 
 command('roll', 'Broadcast a dice roll between 1-6: "roll". See also "dice".', function (rest, player, game) {
-  game.execute(player, "dice");
+  player.execute("dice");
 });
 
 command('dice', 'Broadcast a dice roll between 1-6: "dice". See also "roll"', function (rest, player, game) {
   var roll = Math.ceil(Math.random()*6);
   player.getCurrentRoom().broadcast(player.name + ' rolls a ' + roll, player);
   player.write('You rolled a ' + roll);
+});
+
+command('zyzzy', 'Will anything happen?', function (rest, player, game) {
+  player.write('Nothing happens');
 });

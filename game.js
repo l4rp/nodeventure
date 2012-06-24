@@ -26,6 +26,7 @@ util.inherits(Game, events.EventEmitter);
 _.extend(Game.prototype, {
   // Create or return a named player
   createPlayer: function (name) {
+    name = name.toLowerCase();
     if (!(name in this.players)) {
       this.players[name] = new Player(this, name);
       this.emit('joinPlayer', this.players[name], this);
@@ -193,6 +194,7 @@ _.extend(Player.prototype, {
       id = id.id;
     }
     if (id in this.game.rooms) {
+      this.game.emit('roomTransition:' +this.getCurrentRoom().id + ':' + id, this, this.game.rooms[id], this.getCurrentRoom());
       this.game.emit('leaveRoom', this, this.getCurrentRoom(), this.game);
       this.location = id;
       this.game.emit('enterRoom', this, this.getCurrentRoom(), this.game);
