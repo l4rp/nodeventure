@@ -23,7 +23,7 @@ app.use("/", express.static("./client"));
 io.sockets.on('connection', function (socket) {
   socket.on('login', function (name) {
     if (!(name && name.match && name.match(/^[a-zA-Z0-9._-]+$/))) {
-      socket.emit('write', {string: 'NICE TRY'});
+      socket.emit('write', {string: 'NICE TRY. Try picking a name without spaces or special characters.'});
       return;
     }
     var player = game.createPlayer(name);
