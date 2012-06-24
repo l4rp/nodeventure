@@ -178,6 +178,10 @@ _.extend(Player.prototype, {
     }
     this.emit('write', message);
   },
+  // Broadcast the message to all other players in the current room
+  broadcast: function (message) {
+    this.getCurrentRoom().broadcast(message, this);
+  },
   // Get a named item in the room, returns the first if there are many
   // and null if there are none
   getItem: function (name) {

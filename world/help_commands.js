@@ -1,5 +1,5 @@
 command('commands', 'list all commands available in the game', function (rest, player, game) {
-  player.write('Available commands: ' + _.keys(game.commands).join(", "));
+  player.write('Available commands: ' + _.without(_.keys(game.commands), 'teleport').join(", "));
 });
 
 command('help', 'get you some help! Example: "help <command>"', function (rest, player, game) {

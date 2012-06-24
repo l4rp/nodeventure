@@ -8,6 +8,7 @@ function WorldModule(game) {
   events.EventEmitter.call(this);
   var _this = this;
   this._listenersAdded = [];
+  this._spawns = {};
   // Make all regular globals available within the modules (is this a
   // good idea?)
   _.extend(this, global);
@@ -17,6 +18,8 @@ function WorldModule(game) {
   this.require = require;
   // Make available world creation commands
   this.command = _.bind(game.createCommand, game);
+  // Create a command that expects an item name following it. Will
+  // automatically check that the item is present.
   this.itemCommand = function (command, item, description, fn) {
     game.createCommand(command + ' ' + item, description, fn);
   };
@@ -54,6 +57,29 @@ function WorldModule(game) {
     };
     _this.on(event,  wrapped);
   };
+  // Create an item in the given room every spawnFrequency seconds if
+  // one of the same name does not already exist.
+  this.item = function (room, name, spawnFrequency, item) {
+    item.name = name;
+    _this._spawns[room + ':' + name] = {room: room, lastSpawn: 0, spawnFrequency: spawnFrequency, item: item};
+  };
+
+  // Set up a tick handler to check for spawns
+  this.handler('tick', function () {
+    _.each(_this._spawns, function (spawn) {
+      var t = (new Date()).getTime()/1000,
+          room = game.rooms[spawn.room];
+      if (t-spawn.lastSpawn > spawn.spawnFrequency) {
+        spawn.lastSpawn = t;
+        if (!room.getItem(spawn.item.name)) {
+          var item = _.clone(spawn.item);
+          room.items.push(item);
+          game.emit('spawn', room, item);
+        }
+      }
+    });
+  });
+  
 }
 
 util.inherits(WorldModule, events.EventEmitter);

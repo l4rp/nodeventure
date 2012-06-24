@@ -1,12 +1,16 @@
 room('home', {
   description: "You are in the Lab For the Recently Possible. A large table sits in the middle of the room around which geeks sit hard at work on some kind of text adventure...",
   exits: {west: 'meeting-room', east:'switzerland'},
-  items: [{short: 'a mighty sword', name: 'sword', description: 'This sword is really really really mighty'}]});
+  items: []});
+
+item('home', 'sword', 60, {short: 'a mighty sword', name: 'sword', description: 'This sword is really really really mighty'});
 
 room('meeting-room', {
   description: "This is the 'Room of Ideas' at the Lab for the Recently Possible. There is a dark hole here.",
-  items: [{short: 'a mirror', name: 'mirror', description: 'This mirror makes things look different...'}],
+  items: [],
   exits: {east: 'home', down: 'hole', west: 'lobby'}});
+
+item('meeting-room', 'mirror', 60, {short: 'a mirror', name: 'mirror', description: 'This mirror makes things look different...'});
 
 room('hole', {
   description: "You are in a deep, dark hole.",
@@ -14,9 +18,12 @@ room('hole', {
 
 room('hole2', {
   description: "You scramble and fail to get out. You are trapped here forever. Perhaps you can cry? But wait a minute! Is that a rope?",
-  items: [{short: 'white chalk' , gettable: false, name: 'chalk', description: 'A bit of white chalk. You could mark the years you are going to be stuck here.'},
-          {short: 'a bottle of rum', name: 'rum', description: 'A large bottle full of rum.  The label says "Blackbeard\'s Hearty Rum - The Original Gutburner"'}],
+  items: [],
   exits: {up: 'hole2', rope: 'meeting-room'}});
+
+item('hole2','chalk', 60, {short: 'white chalk' , uses: 3, name: 'chalk', description: 'A bit of white chalk. You could probably use it to "write <message>".'});
+
+item('hole2', 'rum', 65, {short: 'a bottle of rum', name: 'rum', description: 'A large bottle full of rum.  The label says "Blackbeard\'s Hearty Rum - The Original Gutburner"'});
 
 handler('roomTransition:hole2:meeting-room', function (player, from, to) {
   player.write('You climb the rope out of the hole');
