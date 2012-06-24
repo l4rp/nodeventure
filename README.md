@@ -1,7 +1,9 @@
 Text Adventure Lab @ L4RP
 =========================
 
-Base code for the Adventure Game we'll create together at the L4RP on Friday, 22nd June 2012. 10am - 6pm
+A multiplayer text adventure that we created together on the Text Adventure Lab Day at the L4RP (http://l4rp.com). You can play it at:
+
+http://nv.l4rp.com
 
 To Run
 ------
@@ -14,7 +16,8 @@ node server.js
 open http://localhost:8989
 ```
 
-Details on the day
+
+Details off the day
 ------------------
 
 Friday, 22nd June 2012. 10am - 6pm
