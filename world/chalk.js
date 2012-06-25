@@ -8,7 +8,7 @@ command('write', function (rest, player, game) {
   } else {
     player.write('You scrawl "' + rest + '" on a nearby wall');
     player.broadcast(player.name + ' scrawls "' + rest + '" on a nearby wall');
-    player.getCurrentRoom().items.push({short: '"' + rest + '" scralwed in chalk on a nearby wall'});
+    player.getCurrentRoom().items.push({short: '"' + rest + '" scrawled in chalk on a nearby wall'});
     item.uses--;
     if (item.uses === 1) {
       player.write('The chalk is almost gone!');
