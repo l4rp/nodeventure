@@ -137,7 +137,7 @@ _.extend(Room.prototype, {
   // and null if there are none
   getItem: function (name) {
     return _.find(this.items, function (item) {
-      return item.name.toLowerCase() === name.toLowerCase();
+      return item.name && item.name.toLowerCase() === name.toLowerCase();
     });
   },
   // Send a message to all players in the room. Optionally you can
@@ -186,7 +186,7 @@ _.extend(Player.prototype, {
   // and null if there are none
   getItem: function (name) {
     return _.find(this.inventory, function (item) {
-      return item.name.toLowerCase() === name.toLowerCase();
+      return item.name && item.name.toLowerCase() === name.toLowerCase();
     });
   },
   getCurrentRoom: function () {
