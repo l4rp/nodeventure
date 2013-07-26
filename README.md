@@ -9,7 +9,7 @@ To Run
 ------
 
 ```
-git checkout https://github.com/l4rp/nodeventure.git
+git clone https://github.com/l4rp/nodeventure.git
 cd nodeadventure
 npm install
 node server.js
